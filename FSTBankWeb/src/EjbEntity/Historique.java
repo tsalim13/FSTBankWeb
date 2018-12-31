@@ -9,9 +9,10 @@ import javax.persistence.*;
 public class Historique implements Serializable{
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long id;
-	private double soldeTransaction;
-	private double soldeTotal;
+	private int id;
+	private int id_compte;
+	private double soldeAvant;
+	private double soldeApres;
 	private Date dateTransaction;
 	
 	private static final long serialVersionUID = 1L;
@@ -20,28 +21,28 @@ public class Historique implements Serializable{
 		super();
 	}
 
-	public Long getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
-	public double getSoldeTransaction() {
-		return soldeTransaction;
+	public double getSoldeAvant() {
+		return soldeAvant;
 	}
 
-	public void setSoldeTransaction(double soldeTransaction) {
-		this.soldeTransaction = soldeTransaction;
+	public void setSoldeAvant(double soldeAvant) {
+		this.soldeAvant = soldeAvant;
 	}
 
-	public double getSoldeTotal() {
-		return soldeTotal;
+	public double getSoldeApres() {
+		return soldeApres;
 	}
 
-	public void setSoldeTotal(double soldeTotal) {
-		this.soldeTotal = soldeTotal;
+	public void setSoldeApres(double soldeApres) {
+		this.soldeApres = soldeApres;
 	}
 
 	public Date getDateTransaction() {

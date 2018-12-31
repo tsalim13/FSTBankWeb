@@ -11,7 +11,7 @@ public class Client implements Serializable {
 	   
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long id;
+	private int id;
 	private String nom;
 	private String prenom;
 	private String mail;
@@ -21,11 +21,11 @@ public class Client implements Serializable {
 	public Client() {
 		super();
 	}   
-	public Long getId() {
+	public int getId() {
 		return this.id;
 	}
 
-	public void setId(Long id) {
+	public void setId(int id) {
 		this.id = id;
 	}   
 	public String getNom() {

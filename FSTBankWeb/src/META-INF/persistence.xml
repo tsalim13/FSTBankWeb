@@ -7,7 +7,8 @@
 	<class>EjbEntity.CProfessionnel</class>
 	<class>EjbEntity.CParticulierPartage</class>
 	<class>EjbEntity.Banquier</class>
-	<class>EjbEntity.Historique</class>	
+	<class>EjbEntity.Historique</class>
+	<class>EjbEntity.Compte</class>	
 	<properties>
 		<property name="hibernate.hbm2ddl.auto" value="update"/>
 	</properties>

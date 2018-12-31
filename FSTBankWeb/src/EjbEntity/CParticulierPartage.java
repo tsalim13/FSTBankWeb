@@ -2,37 +2,30 @@ package EjbEntity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Set;
 
 import javax.persistence.*;
 
 @Entity
-public class CParticulierPartage implements Serializable {
+public class CParticulierPartage extends Compte implements Serializable {
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long code;
-	private ArrayList<Client> list = null;
+	@ManyToMany
+	@JoinTable(name ="cpartager",
+    joinColumns = { @JoinColumn(name = "cp_id") },
+    inverseJoinColumns = { @JoinColumn(name = "client_id") })
+	private Set<Client> clients;
 	private static final long serialVersionUID = 1L;
 
 	public CParticulierPartage() {
 		super();
-		ArrayList<Client> list = new ArrayList<Client>();
 	}
 
-	public Long getCode() {
-		return code;
+	public Set<Client> getList() {
+		return clients;
 	}
 
-	public void setCode(Long code) {
-		this.code = code;
-	}
-
-	public ArrayList<Client> getList() {
-		return list;
-	}
-
-	public void setList(ArrayList<Client> list) {
-		this.list = list;
+	public void Set(Set<Client> clientsList) {
+		this.clients = clientsList;
 	}
 
 }

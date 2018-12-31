@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class Banquier implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long id;
+	private int id;
 	private String nom;
 	private String prenom;
 	private String mail;
@@ -18,11 +18,11 @@ public class Banquier implements Serializable {
 		super();
 	}
 
-	public Long getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
