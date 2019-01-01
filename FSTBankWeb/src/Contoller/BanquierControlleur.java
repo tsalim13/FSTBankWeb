@@ -33,28 +33,24 @@ public class BanquierControlleur extends HttpServlet {
 			throws ServletException, IOException {
 		
 		//BanquierBean clr = new BanquierBean();
-		Banquier bn = new Banquier();
-		
-		bn.setMail("banquierrrr");
-		bn.setMdp("03428");
-		bn.setNom("mail@maom==il");
-		bn.setPrenom("defg");
-		
-		cr.ajouter(bn);
-		
 		
 		List<Banquier> list = cr.afficher();
-		System.out.println("liistee banquierr :::");
-		Banquier bnnq = (Banquier)list.get(1);
-		System.out.println(bnnq.getMail());
-		
-		
 		request.setAttribute("banquiers", list);
 		this.getServletContext().getRequestDispatcher("/banquier.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		Banquier bn = new Banquier();
+	
+		bn.setMail(request.getParameter("mail"));
+		bn.setMdp(request.getParameter("mdp"));
+		bn.setNom(request.getParameter("nom"));
+		bn.setPrenom(request.getParameter("prenom"));
+		
+		cr.ajouter(bn);
+		
+		doGet(request, response);
 
 	}
 
