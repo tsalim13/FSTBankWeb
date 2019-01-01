@@ -3,20 +3,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
 <head>
-    <!--
-        ===
-        This comment should NOT be removed.
 
-        Charisma v2.0.0
-
-        Copyright 2012-2014 Muhammad Usman
-        Licensed under the Apache License v2.0
-        http://www.apache.org/licenses/LICENSE-2.0
-
-        http://usman.it
-        http://twitter.com/halalit_usman
-        ===
-    -->
     <meta charset="utf-8">
     <title>FSTBank</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -123,39 +110,40 @@
                         <li class="nav-header">Main</li>
                         <li><a class="ajax-link" href="index.html"><i class="glyphicon glyphicon-home"></i><span> Dashboard</span></a>
                         </li>
-                        <li><a class="ajax-link" href="ui.html"><i class="glyphicon glyphicon-eye-open"></i><span> UI Features</span></a>
-                        </li>
-                        <li><a class="ajax-link" href="form.html"><i
-                                    class="glyphicon glyphicon-edit"></i><span> Forms</span></a></li>
-                        <li><a class="ajax-link" href="chart.html"><i class="glyphicon glyphicon-list-alt"></i><span> Charts</span></a>
-                        </li>
-                        <li><a class="ajax-link" href="typography.html"><i class="glyphicon glyphicon-font"></i><span> Typography</span></a>
-                        </li>
-                        <li><a class="ajax-link" href="gallery.html"><i class="glyphicon glyphicon-picture"></i><span> Gallery</span></a>
-                        </li>
-                        <li class="nav-header hidden-md">Sample Section</li>
-                        <li><a class="ajax-link" href="table.html"><i
-                                    class="glyphicon glyphicon-align-justify"></i><span> Tables</span></a></li>
+                        <li class="nav-header hidden-md">Clients</li>
                         <li class="accordion">
-                            <a href="#"><i class="glyphicon glyphicon-plus"></i><span> Accordion Menu</span></a>
+                            <a href="#"><i class="glyphicon glyphicon-plus"></i><span> Ajouter un client</span></a>
                             <ul class="nav nav-pills nav-stacked">
-                                <li><a href="#">Child Menu 1</a></li>
-                                <li><a href="#">Child Menu 2</a></li>
+                                <li><a href="#">Compte particulier prive</a></li>
+                                <li><a href="#">Compte particulier partagé</a></li>
+                                <li><a href="#">Compte entreprise</a></li>
                             </ul>
                         </li>
-                        <li><a class="ajax-link" href="calendar.html"><i class="glyphicon glyphicon-calendar"></i><span> Calendar</span></a>
+                        <li class="accordion">
+                            <a href="#"><i class="glyphicon glyphicon-plus"></i><span> Liste des clients</span></a>
+                            <ul class="nav nav-pills nav-stacked">
+                                <li><a href="#">Compte particulier prive</a></li>
+                                <li><a href="#">Compte particulier partagé</a></li>
+                                <li><a href="#">Compte entreprise</a></li>
+                            </ul>
                         </li>
-                        <li><a class="ajax-link" href="grid.html"><i
-                                    class="glyphicon glyphicon-th"></i><span> Grid</span></a></li>
-                        <li><a href="tour.html"><i class="glyphicon glyphicon-globe"></i><span> Tour</span></a></li>
-                        <li><a class="ajax-link" href="icon.html"><i
-                                    class="glyphicon glyphicon-star"></i><span> Icons</span></a></li>
-                        <li><a href="error.html"><i class="glyphicon glyphicon-ban-circle"></i><span> Error Page</span></a>
+                        <li class="nav-header hidden-md">Comptes</li>
+                        <li class="accordion">
+                            <a href="#"><i class="glyphicon glyphicon-plus"></i><span> Ajouter un compte</span></a>
+                            <ul class="nav nav-pills nav-stacked">
+                                <li><a href="#">Compte particulier prive</a></li>
+                                <li><a href="#">Compte particulier partagé</a></li>
+                                <li><a href="#">Compte entreprise</a></li>
+                            </ul>
                         </li>
-                        <li><a href="login.html"><i class="glyphicon glyphicon-lock"></i><span> Login Page</span></a>
+                        <li class="accordion">
+                            <a href="#"><i class="glyphicon glyphicon-plus"></i><span> Liste des comptes</span></a>
+                            <ul class="nav nav-pills nav-stacked">
+                                <li><a href="#">Compte particulier prive</a></li>
+                                <li><a href="#">Compte particulier partagé</a></li>
+                                <li><a href="#">Compte entreprise</a></li>
+                            </ul>
                         </li>
-                    </ul>
-                    <label id="for-is-ajax" for="is-ajax"><input id="is-ajax" type="checkbox"> Ajax on menu</label>
                 </div>
             </div>
         </div>

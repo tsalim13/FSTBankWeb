@@ -15,21 +15,7 @@
                 (adsbygoogle = window.adsbygoogle || []).push({});
             </script>
         </div>
-        <div class="col-md-2 col-lg-3 col-sm-12 col-xs-12 email-subscription-footer">
-            <div class="mc_embed_signup">
-                <form action="//halalit.us3.list-manage.com/subscribe/post?u=444b176aa3c39f656c66381f6&amp;id=eeb0c04e84" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-                    <div>
-                        <label>Keep up with my work</label>
-                        <input type="email" value="" name="EMAIL" class="email" placeholder="Email address" required>
 
-                        <div class="power_field"><input type="text" name="b_444b176aa3c39f656c66381f6_eeb0c04e84" tabindex="-1" value=""></div>
-                        <div class="clear"><input type="submit" value="Subscribe" name="subscribe" class="button"></div>
-                    </div>
-                </form>
-            </div>
-
-            <!--End mc_embed_signup-->
-        </div>
 
     </div>
     <!-- Ad ends -->
@@ -57,11 +43,9 @@
     </div>
 
     <footer class="row">
-        <p class="col-md-9 col-sm-9 col-xs-12 copyright">&copy; <a href="http://usman.it" target="_blank">Muhammad
-                Usman</a> 2012 - 2015</p>
+        <p class="col-md-9 col-sm-9 col-xs-12 copyright">&copy; <a href="http://usman.it" target="_blank">Salim Tabet & Zenagui Ibrahim
+        </a> 2018 - 2019</p>
 
-        <p class="col-md-3 col-sm-3 col-xs-12 powered-by">Powered by: <a
-                href="http://usman.it/free-responsive-admin-template">Charisma</a></p>
     </footer>
 
 </div><!--/.fluid-container-->
