@@ -44,13 +44,13 @@ public class ComptePriveBean implements ComptePriveLocal,ComptePriveRemote{
 
 	@Override
 	public void verser(int id, double mt) {
-		Compte cp = getCompte(id);
+		CParticulierPrive cp = getCompte(id);
 		cp.setSolde(cp.getSolde()+mt);		
 	}
 
 	@Override
 	public void retirer(int id, double mt) {
-		Compte cp = getCompte(id);
+		CParticulierPrive cp = getCompte(id);
 		if(cp.getSolde()<mt)throw new RuntimeException("Solde insuffisant");
 		cp.setSolde(cp.getSolde()-mt);	
 	}

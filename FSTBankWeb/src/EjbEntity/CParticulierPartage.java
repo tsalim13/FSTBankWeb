@@ -14,7 +14,15 @@ public class CParticulierPartage extends Compte implements Serializable {
     joinColumns = { @JoinColumn(name = "cp_id") },
     inverseJoinColumns = { @JoinColumn(name = "client_id") })
 	private Set<Client> clients;
-	private static final long serialVersionUID = 1L;
+	private double solde;
+
+	public double getSolde() {
+		return solde;
+	}
+
+	public void setSolde(double solde) {
+		this.solde = solde;
+	}
 
 	public CParticulierPartage() {
 		super();
