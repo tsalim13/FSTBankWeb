@@ -2,6 +2,7 @@ package Contoller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -19,6 +20,7 @@ import EjbEntity.Banquier;
 @WebServlet("/BanquierControlleur")
 public class BanquierControlleur extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
 	@EJB
 	private BanquierRemote cr;
 
@@ -31,10 +33,23 @@ public class BanquierControlleur extends HttpServlet {
 			throws ServletException, IOException {
 		
 		//BanquierBean clr = new BanquierBean();
-		ArrayList<Banquier> list = (ArrayList<Banquier>) cr.afficher();
-		System.out.println("hahahahhahhahahhahhaha");
-		System.out.println(list.get(0));
-
+		Banquier bn = new Banquier();
+		
+		bn.setMail("banquierrrr");
+		bn.setMdp("03428");
+		bn.setNom("mail@maom==il");
+		bn.setPrenom("defg");
+		
+		cr.ajouter(bn);
+		
+		
+		List<Banquier> list = cr.afficher();
+		System.out.println("liistee banquierr :::");
+		Banquier bnnq = (Banquier)list.get(1);
+		System.out.println(bnnq.getMail());
+		
+		
+		request.setAttribute("banquiers", list);
 		this.getServletContext().getRequestDispatcher("/banquier.jsp").forward(request, response);
 	}
 

@@ -18,9 +18,9 @@ public class BanquierBean implements BanquierRemote{
 	EntityManager em;
 
 	@Override
-	public Banquier ajouter(Client clr) {
-		// TODO Auto-generated method stub
-		return null;
+	public Banquier ajouter(Banquier bnq) {
+		em.persist(bnq);
+		return bnq;
 	}
 
 	@Override
@@ -36,8 +36,8 @@ public class BanquierBean implements BanquierRemote{
 	}
 
 	@Override
-	public List afficher() {
-		Query req = em.createQuery("select * from banquier");
+	public List<Banquier> afficher() {
+		Query req = em.createQuery("select b from Banquier b");
 		return req.getResultList();
 		
 	}

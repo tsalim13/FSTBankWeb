@@ -9,7 +9,7 @@ import EjbEntity.Banquier;
 import EjbEntity.Client;
 @Remote
 public interface BanquierRemote {
-	public Banquier ajouter(Client clr);
+	public Banquier ajouter(Banquier clr);
 	public void supprimer();
 	public void modifier();
 	public List<Banquier> afficher();
