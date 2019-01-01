@@ -7,7 +7,7 @@ import EjbEntity.Client;
 @Remote
 public interface ClientRemote {
 
-	public void ajouter();
+	public Client ajouter(Client clr);
 	public void supprimer();
 	public void modifier();
 	public List<Client> afficher();

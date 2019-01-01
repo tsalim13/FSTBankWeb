@@ -10,35 +10,35 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import EjbEntity.CParticulierPrive;
 import EjbEntity.Compte;
 
-@Stateful(name="dsFSTBank")
-@LocalBean
-public class CompteEjbIml implements CompteLocal,CompteRemote{
+@Stateful
+public class ComptePriveBean implements ComptePriveLocal,ComptePriveRemote{
 	
-	@PersistenceContext(unitName = "dsFSTBank")
+	@PersistenceContext
 	EntityManager em;
 
-    public CompteEjbIml() {
+    public ComptePriveBean() {
         // TODO Auto-generated constructor stub
     }
 
 	@Override
-	public Compte addCompte(Compte cp) {
-		em.persist(cp);
-		return cp;
+	public CParticulierPrive addCompte(CParticulierPrive cpp) {
+		em.persist(cpp);
+		return cpp;
 	}
 
 	@Override
-	public Compte getCompte(int id) {
-		Compte cp = em.find(Compte.class, id);
+	public CParticulierPrive getCompte(int id) {
+		CParticulierPrive cp = em.find(CParticulierPrive.class, id);
 		if (cp == null) throw new RuntimeException("Compte introuvable");
 		return cp;
 	}
 
 	@Override
-	public List<Compte> listComptes() {
-		Query req = em.createQuery("select * from Compte");
+	public List<CParticulierPrive> listComptes() {
+		Query req = em.createQuery("select * from cparticulierprive");
 		return req.getResultList();
 	}
 
@@ -60,6 +60,6 @@ public class CompteEjbIml implements CompteLocal,CompteRemote{
 		retirer(cp, mt);
 		verser(cp2, mt);
 	}
-    
+  
 
 }

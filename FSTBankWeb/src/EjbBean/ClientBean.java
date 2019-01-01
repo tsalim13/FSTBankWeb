@@ -11,7 +11,7 @@ import EjbEntity.Client;
 /**
  * Session Bean implementation class ClientBean
  */
-@Stateful(name="dsFSTBank")
+@Stateful
 public class ClientBean implements ClientRemote{
 
 	@PersistenceContext(unitName = "dsFSTBank")
@@ -22,9 +22,9 @@ public class ClientBean implements ClientRemote{
     }
 
 	@Override
-	public void ajouter() {
-		// TODO Auto-generated method stub
-		
+	public Client ajouter(Client clr) {
+		em.persist(clr);
+		return clr;
 	}
 
 	@Override
