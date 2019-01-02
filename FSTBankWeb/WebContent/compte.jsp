@@ -48,7 +48,8 @@
 														</h2>
 													</div>
 													<div class="box-content">
-														<form action="CompteControlleur" method="post">
+														<form action="AddCompteControlleur" method="post">
+															<input type="hidden" name="form1" value="1">
 															<div class="form-group">
 																<label for="exampleInputEmail1">Client a partage
 																	le Compte avec eux</label>
@@ -167,7 +168,8 @@
 														</h2>
 													</div>
 													<div class="box-content">
-														<form action="CompteControlleur" method="post">
+														<form action="AddCompteControlleur" method="post">
+															<input type="hidden" name="form2" value="2">
 															<c:choose>
 																<c:when test="${cl!= null}">
 																	<div class="form-group">
@@ -208,7 +210,8 @@
 									</h2>
 								</div>
 								<div class="box-content">
-									<form action="CompteControlleur" method="post">
+									<form action="AddCompteControlleur" method="post" value="3">
+										<input type="hidden" name="form3">
 										<c:choose>
 											<c:when test="${cl!= null}">
 												<div class="form-group">

@@ -7,25 +7,26 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Servlet implementation class CompteControlleur
- */
-@WebServlet("/CompteControlleur")
-public class CompteControlleur extends HttpServlet {
+
+@WebServlet("/DashBanquier")
+public class DashBanquier extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    
-    public CompteControlleur() {
-        super();  
+   
+    public DashBanquier() {
+        super();
+        
     }
 
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		this.getServletContext().getRequestDispatcher("/dashBanquier.jsp").forward(request, response);
 	}
 
 
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+
 		doGet(request, response);
 	}
 
