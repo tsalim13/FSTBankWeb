@@ -35,9 +35,9 @@ public class BanquierControlleur extends HttpServlet {
 		//BanquierBean clr = new BanquierBean();
 		Banquier bn = new Banquier();
 		
-		bn.setMail("banquierrrr");
+		bn.setMail("banq");
 		bn.setMdp("03428");
-		bn.setNom("mail@maom==il");
+		bn.setNom("gotlmm");
 		bn.setPrenom("defg");
 		
 		cr.ajouter(bn);
