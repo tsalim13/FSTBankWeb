@@ -21,7 +21,7 @@
 			<div class="box-inner">
 				<div class="box-header well" data-original-title="">
 					<h2>
-						<i class="glyphicon glyphicon-star-empty"></i>Liste des banquiers
+						<i class="glyphicon glyphicon-star-empty"></i>Liste des clients
 					</h2>
 				</div>
 				<div class="box-content">
@@ -31,7 +31,7 @@
 
 							<!-- Button trigger modal -->
 							<button type="button" class="btn btn-primary" data-toggle="modal"
-								data-target="#exampleModal">Ajouter un banquier</button>
+								data-target="#exampleModal">Ajouter un client</button>
 
 							<!-- Modal -->
 							<div class="modal fade" id="exampleModal" tabindex="-1"
@@ -41,13 +41,13 @@
 									<div class="modal-content">
 										<div class="modal-header">
 											<h5 class="modal-title" id="exampleModalLabel">Ajouter
-												un banquier</h5>
+												un client</h5>
 											<button type="button" class="close" data-dismiss="modal"
 												aria-label="Close">
 												<span aria-hidden="true">&times;</span>
 											</button>
 										</div>
-										<form action="BanquierControlleur" method="post">
+										<form action="ClientControlleur" method="post">
 
 											<div class="modal-body">
 												<div class="form-group">
@@ -65,6 +65,8 @@
 														type="email" class="form-control" name="mail"
 														placeholder="Enter email" required>
 												</div>
+
+
 												<div class="form-group">
 													<label for="exampleInputEmail1">Mot de passe</label> <input
 														type="password" class="form-control" name="mdp"
@@ -96,12 +98,13 @@
 								</tr>
 							</thead>
 							<tbody>
-								<c:forEach items="${banquiers}" var="banquier">
+								<c:forEach items="${clients}" var="client">
 									<tr>
-										<td>${banquier.id}</td>
-										<td class="center">${banquier.nom}</td>
-										<td class="center">${banquier.prenom}</td>
-										<td class="center">${banquier.mail}<span
+									<form action="CompteControlleur" method="post">
+										<td>${client.id}</td>
+										<td class="center">${client.nom}</td>
+										<td class="center">${client.prenom}</td>
+										<td class="center">${client.mail}<span
 											class="label-success label label-default">Active</span></td>
 										<td class="center"><a class="btn btn-success" href="#">
 												<i class="glyphicon glyphicon-zoom-in icon-white"></i> View
@@ -111,11 +114,60 @@
 											title="Attention tout information seront supprimées."
 											data-toggle="tooltip"> <i
 												class="glyphicon glyphicon-trash icon-white"></i> Supprimer
-										</a></td>
+										</a>
+												    <input type="hidden" value="${client.id}" name="id">
+												<button class="btn btn-primary">Ajouter
+													un compte</button>
+													
+											</form></td>
+
 									</tr>
 								</c:forEach>
 							</tbody>
 						</table>
+						<!-- Modal -->
+						<div class="modal fade" id="exampleModal2" tabindex="-1"
+							role="dialog" aria-labelledby="exampleModalLabel"
+							aria-hidden="true">
+							<div class="modal-dialog" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h3 class="modal-title" id="exampleModalLabel">Ajouter un
+											compte</h3>
+										<button type="button" class="close" data-dismiss="modal"
+											aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<form action="ClientControlleur" method="post">
+
+										<div class="modal-body">
+											<h4>Choix type de compte banquaire:</h4>
+											<div class="select">
+												<select name="select" class="form-control">
+													<option>veuillez choisix type de compte...</option>
+													<option>Compte professionel</option>
+													<option>Compte particulier</option>
+
+												</select>
+
+											</div>
+
+
+
+										</div>
+
+										<div class="modal-footer">
+											<button type="button" class="btn btn-secondary btn-sm"
+												data-dismiss="modal">Close</button>
+
+											<button class="btn btn-primary btn-sm">Save Changes</button>
+										</div>
+									</form>
+
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>

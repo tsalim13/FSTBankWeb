@@ -2,15 +2,14 @@ package EjbBean;
 
 import java.util.List;
 
+
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import EjbEntity.Client;
 
-/**
- * Session Bean implementation class ClientBean
- */
 @Stateful
 public class ClientBean implements ClientRemote{
 
@@ -41,8 +40,8 @@ public class ClientBean implements ClientRemote{
 
 	@Override
 	public List<Client> afficher() {
-		// TODO Auto-generated method stub
-		return null;
+		Query req = em.createQuery("select c from Client c");
+		return req.getResultList();
 	}
 
 }

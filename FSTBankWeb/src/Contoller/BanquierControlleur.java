@@ -47,7 +47,6 @@ public class BanquierControlleur extends HttpServlet {
 		bn.setMdp(request.getParameter("mdp"));
 		bn.setNom(request.getParameter("nom"));
 		bn.setPrenom(request.getParameter("prenom"));
-		
 		cr.ajouter(bn);
 		
 		doGet(request, response);
