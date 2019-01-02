@@ -44,4 +44,11 @@ public class ClientBean implements ClientRemote{
 		return req.getResultList();
 	}
 
+	@Override
+	public Client find(int id) {
+		Client cl = em.find(Client.class, id);
+		return cl;
+		 
+	}
+
 }

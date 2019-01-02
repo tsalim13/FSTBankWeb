@@ -11,4 +11,5 @@ public interface ClientRemote {
 	public void supprimer();
 	public void modifier();
 	public List<Client> afficher();
+	public Client find(int id);
 }
