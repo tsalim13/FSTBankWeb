@@ -1,14 +1,12 @@
 package EjbEntity;
 
 import java.io.Serializable;
-import java.lang.Long;
 import java.lang.String;
 import javax.persistence.*;
 
 @Entity
 public class Client implements Serializable {
 
-	   
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
