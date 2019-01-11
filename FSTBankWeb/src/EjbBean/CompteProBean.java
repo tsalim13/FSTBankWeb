@@ -47,29 +47,77 @@ public class CompteProBean implements CompteProRemote {
 	}
 
 	@Override
-	public void verser(int id, double mt) {
-		CProfessionnel cp = getCompte(id);
-		cp.setSolde(cp.getSolde() + mt);
+	public boolean verser(int id, double mt) {
+		CProfessionnel cpp = em.find(CProfessionnel.class, id);
+		if (cpp != null) {
+			cpp.setSolde(cpp.getSolde() + mt);
+			em.flush();
+			return true;
+		} else
+			return false;
 	}
 
 	@Override
-	public void retirer(int id, double mt) {
-		CProfessionnel cp = getCompte(id);
-		if (cp.getSolde() < mt)
-			throw new RuntimeException("Solde insuffisant");
-		cp.setSolde(cp.getSolde() - mt);
+	public boolean retirer(int id, double mt, String typeCompte) {
+		if (typeCompte.equals("prive")) {
+			CParticulierPrive cpp = em.find(CParticulierPrive.class, id);
+			if (cpp != null) {
+				if (cpp.getSolde() < mt)
+					return false;
+				cpp.setSolde(cpp.getSolde() - mt);
+				em.flush();
+				return true;
+			}
+		}
+		else if (typeCompte.equals("partage")) {
+			CParticulierPartage cpp = em.find(CParticulierPartage.class, id);	
+			if (cpp != null) {
+				if (cpp.getSolde() < mt)
+					return false;
+				cpp.setSolde(cpp.getSolde() - mt);
+				em.flush();
+				return true;
+			}
+		}
+		else {
+			CProfessionnel cpp = em.find(CProfessionnel.class, id);
+			if (cpp != null) {
+				if (cpp.getSolde() < mt)
+					return false;
+				cpp.setSolde(cpp.getSolde() - mt);
+				em.flush();
+				return true;
+			}
+		}	
+		return false;
 	}
 
 	@Override
-	public void virement(int cp, int cp2, double mt) {
-		retirer(cp, mt);
-		verser(cp2, mt);
+	public boolean virement(int cp, int cp2, double mt, String typeCompte) {
+		if (retirer(cp, mt,typeCompte)) {
+			if (verser(cp2, mt)) {
+				return true;
+			}
+			else return false;
+		}
+		else 
+			return false;
 	}
 
 	@Override
 	public CProfessionnel findCompteByClient(int idClient) {
 		try {
 			Query req = em.createQuery("from CProfessionnel c where c.client_id ='" + idClient + "'");
+			return (CProfessionnel) req.getSingleResult();
+		} catch (Exception e) {
+			return null;
+		}
+	}
+
+	@Override
+	public CProfessionnel findIdByIBAN(String iban) {
+		try {
+			Query req = em.createQuery("from CProfessionnel c where c.codeIBN='" + iban + "'");
 			return (CProfessionnel) req.getSingleResult();
 		} catch (Exception e) {
 			return null;

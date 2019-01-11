@@ -6,8 +6,10 @@ import java.util.Date;
 import javax.persistence.*;
 
 @Entity
-public class CParticulierPrive extends Compte implements Serializable  {
-	
+public class CParticulierPrive  implements Serializable  {
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private int id;
 	@ManyToOne
 	private Client client ;
 	private double solde;
@@ -39,5 +41,14 @@ public class CParticulierPrive extends Compte implements Serializable  {
 	public void setCodeIBN(String codeIBN) {
 		this.codeIBN = codeIBN;
 	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+	
    
 }

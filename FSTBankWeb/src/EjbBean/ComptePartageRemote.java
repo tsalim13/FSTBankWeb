@@ -13,8 +13,9 @@ public interface ComptePartageRemote {
 	public CParticulierPartage addCompte(CParticulierPartage cpp);
 	public CParticulierPartage getCompte(int id);
 	public List<CParticulierPartage> listComptes();
-	public void verser(int id, double mt);
-	public void retirer(int id, double mt);
-	public void virement(int cp, int cp2, double mt);
+	public boolean verser(int id, double mt);
 	public CParticulierPartage findCompteByClient(int idClient);
+	public CParticulierPartage findIdByIBAN(String iban2);
+	boolean virement(int cp, int cp2, double mt, String typeCompte);
+	boolean retirer(int id, double mt, String typeCompte);
 }

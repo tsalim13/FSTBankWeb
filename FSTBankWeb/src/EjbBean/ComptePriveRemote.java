@@ -14,9 +14,9 @@ public interface ComptePriveRemote {
 	public CParticulierPrive addCompte(CParticulierPrive cpp);
 	public CParticulierPrive getCompte(int id);
 	public List<CParticulierPrive> listComptes();
-	public void verser(int id, double mt);
-	public void retirer(int id, double mt);
-	public void virement(int cp, int cp2, double mt);
 	public ArrayList<CParticulierPrive> findCompteByClient(int idClient);
-	
+	public CParticulierPrive findIdByIBAN(String iban);
+	boolean retirer(int id, double mt, String typeCompte);
+	boolean verser(int id, double mt);
+	boolean virement(int cp, int cp2, double mt, String typeCompte);
 }

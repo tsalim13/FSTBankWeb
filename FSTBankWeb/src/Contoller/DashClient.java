@@ -35,6 +35,8 @@ public class DashClient extends HttpServlet {
 	private CompteProRemote cpPro;
 
 	private boolean cptValide = true;
+	private boolean trouve = false;
+	private int soldeInsuffisant = 0;
 	private ArrayList<Compte> allCompteClient = new ArrayList<Compte>();
 
 	public DashClient() {
@@ -45,36 +47,90 @@ public class DashClient extends HttpServlet {
 			throws ServletException, IOException {
 		// récupérer id du client . . .
 
-		// récupérer les comptes du client
-		ArrayList<CParticulierPrive> c = null;
-		c = cpPrive.findCompteByClient(1);
-		if (c != null) {
-			System.out.println("yesssssssssssssssssss");
-			System.out.println(c.get(0).getCodeIBN());
+		// récupérer les comptes Particulier Prive du client
+		ArrayList<CParticulierPrive> liste = null;
+		liste = cpPrive.findCompteByClient(1);
+		if (liste.size() != 0) {
+			trouve = true;
 		} else
-			System.out.println("non :/");
-
+			trouve = false;
+		request.setAttribute("liste", liste);
 		request.setAttribute("cptValide", cptValide);
+		request.setAttribute("trouve", trouve);
+		request.setAttribute("soldeInsuffisant", soldeInsuffisant);
 		this.getServletContext().getRequestDispatcher("/dashClient.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		if (request.getParameter("form1") != null) {
-			Client client = cr.findByMail(request.getParameter("mail"));
-			if (client != null) {
-				System.out.println(client.getNom() + client.getPrenom());
+			// récupérer les valeur de form 1 . . .
+			String iban = request.getParameter("iban");
+			String iban2 = request.getParameter("iban2");
+			String solde = request.getParameter("solde");
+
+
+			// vérifier si iban2 existe . . .
+			if (cpPrive.findIdByIBAN(iban2) != null) {
+				if (cpPrive.virement(cpPrive.findIdByIBAN(iban).getId(), cpPrive.findIdByIBAN(iban2).getId(),
+						Double.parseDouble(solde), "prive")) {
+					soldeInsuffisant = 1;
+					doGet(request, response);
+					soldeInsuffisant = 0;
+				} else {
+					soldeInsuffisant = 2;
+					doGet(request, response);
+					soldeInsuffisant = 0;
+				}
+
 			} else {
-				cptValide = false;
-				doGet(request, response);
-				cptValide = true;
+				if (cpPro.findIdByIBAN(iban2) != null) {
+					if (cpPro.virement(cpPrive.findIdByIBAN(iban).getId(), cpPro.findIdByIBAN(iban2).getId(),
+							Double.parseDouble(solde), "prive")) {
+						soldeInsuffisant = 1;
+						doGet(request, response);
+						soldeInsuffisant = 0;
+					} else {
+						soldeInsuffisant = 2;
+						doGet(request, response);
+						soldeInsuffisant = 0;
+					}
+				} else {
+					if (cpPartage.findIdByIBAN(iban2) != null) {
+						if (cpPartage.virement(cpPrive.findIdByIBAN(iban).getId(),
+								cpPartage.findIdByIBAN(iban2).getId(), Double.parseDouble(solde), "prive")) {
+							soldeInsuffisant = 1;
+							doGet(request, response);
+							soldeInsuffisant = 0;
+						} else {
+							soldeInsuffisant = 2;
+							doGet(request, response);
+							soldeInsuffisant = 0;
+						}
+					} else {
+						cptValide = false;
+						doGet(request, response);
+						cptValide = true;
+					}
+				}
 			}
 		} else {
-			System.out.println(request.getParameter("soldee"));
+			// récupérer les valeur de form 2 . . .
+			String iban = request.getParameter("iban");
+			String solde = request.getParameter("soldee");
+
+			if (cpPrive.retirer(cpPrive.findIdByIBAN(iban).getId(), Double.parseDouble(solde), "prive")) {
+				soldeInsuffisant = 1;
+				doGet(request, response);
+				soldeInsuffisant = 0;
+			} else {
+				soldeInsuffisant = 2;
+				doGet(request, response);
+				soldeInsuffisant = 0;
+			}
 
 		}
 
-		// doGet(request, response);
 	}
 
 }

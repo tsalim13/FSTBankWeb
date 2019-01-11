@@ -45,22 +45,61 @@ public class ComptePartageBean implements ComptePartageRemote{
 	}
 
 	@Override
-	public void verser(int id, double mt) {
-		CParticulierPartage cp = getCompte(id);
-		cp.setSolde(cp.getSolde()+mt);		
+	public boolean verser(int id, double mt) {		
+		CParticulierPartage cpp = em.find(CParticulierPartage.class, id);
+		if (cpp != null) {
+			cpp.setSolde(cpp.getSolde() + mt);
+			em.flush();
+			return true;
+		} else
+			return false;		
 	}
 
 	@Override
-	public void retirer(int id, double mt) {
-		CParticulierPartage cp = getCompte(id);
-		if(cp.getSolde()<mt)throw new RuntimeException("Solde insuffisant");
-		cp.setSolde(cp.getSolde()-mt);	
+	public boolean retirer(int id, double mt, String typeCompte) {
+		if (typeCompte.equals("prive")) {
+			CParticulierPrive cpp = em.find(CParticulierPrive.class, id);
+			if (cpp != null) {
+				if (cpp.getSolde() < mt)
+					return false;
+				cpp.setSolde(cpp.getSolde() - mt);
+				em.flush();
+				return true;
+			}
+		}
+		else if (typeCompte.equals("partage")) {
+			CParticulierPartage cpp = em.find(CParticulierPartage.class, id);	
+			if (cpp != null) {
+				if (cpp.getSolde() < mt)
+					return false;
+				cpp.setSolde(cpp.getSolde() - mt);
+				em.flush();
+				return true;
+			}
+		}
+		else {
+			CProfessionnel cpp = em.find(CProfessionnel.class, id);
+			if (cpp != null) {
+				if (cpp.getSolde() < mt)
+					return false;
+				cpp.setSolde(cpp.getSolde() - mt);
+				em.flush();
+				return true;
+			}
+		}	
+		return false;
 	}
 
 	@Override
-	public void virement(int cp, int cp2, double mt) {
-		retirer(cp, mt);
-		verser(cp2, mt);
+	public boolean virement(int cp, int cp2, double mt, String typeCompte) {
+		if (retirer(cp, mt ,typeCompte)) {
+			if (verser(cp2, mt)) {
+				return true;
+			}
+			else return false;
+		}
+		else 
+			return false;
 	}
 
 	@Override
@@ -68,6 +107,17 @@ public class ComptePartageBean implements ComptePartageRemote{
 		try {
 			Query req = em.createQuery("from CParticulierPartage c where c.client_id ='" + idClient + "'");
 			return (CParticulierPartage) req.getSingleResult();
+		} catch (Exception e) {
+			return null;
+		}
+	}
+
+	@Override
+	public CParticulierPartage findIdByIBAN(String iban) {
+		try {
+			Query req = em.createQuery("from CParticulierPartage c where c.codeIBN='" + iban + "'");
+			return (CParticulierPartage) req.getSingleResult();
+
 		} catch (Exception e) {
 			return null;
 		}

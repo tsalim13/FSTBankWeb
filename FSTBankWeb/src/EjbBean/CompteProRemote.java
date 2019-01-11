@@ -14,8 +14,9 @@ public interface CompteProRemote {
 	public CProfessionnel addCompte(CProfessionnel cpp);
 	public CProfessionnel getCompte(int id);
 	public List<CProfessionnel> listComptes();
-	public void verser(int id, double mt);
-	public void retirer(int id, double mt);
-	public void virement(int cp, int cp2, double mt);
+	public boolean verser(int id, double mt);
 	public CProfessionnel findCompteByClient(int idClient);
+	public CProfessionnel findIdByIBAN(String iban);
+	boolean virement(int cp, int cp2, double mt, String typeCompte);
+	boolean retirer(int id, double mt, String typeCompte);
 }

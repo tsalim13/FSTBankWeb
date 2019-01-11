@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="d"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="e"%>
+
 <%@ page isELIgnored="false"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <jsp:include page="header.jsp"></jsp:include>
@@ -21,40 +24,58 @@
 			<div class="box-inner">
 				<div class="box-header well" data-original-title="">
 					<h2>
-						<i class="glyphicon glyphicon-star-empty"></i>ERRER: Compte client
+						<i class="glyphicon glyphicon-star-empty"></i>Compte client
 					</h2>
 				</div>
 				<div class="box-content">
 					<!-- put your content here -->
 					<div class="box-content">
-						<c:if test="${cptValide== false}">
-							<div class="alert alert-danger">ERRER : Comple n'existe
+						<e:if test="${cptValide== false}">
+							<div class="alert alert-danger">ERREUR : Comple n'existe
 								pas...</div>
-						</c:if>
-						
-						<div class="alert alert-info" align="center">
-							<!-- Button trigger modal -->
-							<div style="width: 30%; float: left;">
-								<button type="button" class="btn btn-info btn-lg"
-									data-toggle="modal" data-target="#exampleModal">Faire
-									un virement</button>
-							</div>
+						</e:if>
 
+						<e:if test="${soldeInsuffisant == 2}">
+							<div class="alert alert-danger">ERREUR : Solde Insuffisant.
+								. .</div>
+						</e:if>
+						<e:if test="${soldeInsuffisant == 1}">
+							<div class="alert alert-success">success . . .</div>
+						</e:if>
 
-							<button type="button" class="btn btn-info btn-lg"
-								data-toggle="modal" data-target="#exampleModal2">faire
-								un retrait</button>
+						<c:choose>
+							<c:when test="${trouve == true}">
+								<div class="alert alert-info" align="center">
+									<!-- Button trigger modal -->
+									<div style="width: 30%; float: left;">
+										<button type="button" class="btn btn-info btn-lg"
+											data-toggle="modal" data-target="#exampleModal">Faire
+											un virement</button>
+									</div>
+									<button type="button" class="btn btn-info btn-lg"
+										data-toggle="modal" data-target="#exampleModal2">faire
+										un retrait</button>
 
-							<div style="width: 30%; float: right;">
-								<button type="button" class="btn btn-info btn-lg"
-									data-toggle="modal" data-target="#exampleModal">
-									Relever de comptes</button>
-							</div>
+									<div style="width: 30%; float: right;">
+										<button type="button" class="btn btn-info btn-lg"
+											data-toggle="modal" data-target="#exampleModal">
+											Relever de comptes</button>
+									</div>
+								</div>
+								<d:forEach items="${liste}" var="liste">
+									<div class="alert alert-success">${liste.getCodeIBN()}</div>
+									<div
+										style="font-size: 120px; letter-spacing: 4px; text-align: center;">
+										${liste.getSolde()} DZ</div>
+								</d:forEach>
+							</c:when>
+							<c:otherwise>
+								<div
+									style="font-size: 120px; letter-spacing: 4px; text-align: center;"
+									class="alert alert-danger">vous n'aver pas un compte</div>
+							</c:otherwise>
+						</c:choose>
 
-
-						</div>
-						<div class="alert alert-success">information de compte ici .
-							. .</div>
 						<!-- Modal -->
 						<div class="modal fade" id="exampleModal" tabindex="-1"
 							role="dialog" aria-labelledby="exampleModalLabel"
@@ -73,11 +94,13 @@
 
 										<div class="modal-body">
 											<div class="form-group">
-												<label for="exampleInputEmail1">Client</label> <select
+												<label for="exampleInputEmail1">Choisir le compte</label> <select
 													name="iban" class="form-control">
-													<c:forEach items="${clients}" var="client">
-														<option>${client.mail}</option>
-													</c:forEach>
+													<c:if test="${trouve== true}">
+														<d:forEach items="${liste}" var="liste">
+															<option>${liste.getCodeIBN()}</option>
+														</d:forEach>
+													</c:if>
 												</select>
 											</div>
 											<div class="form-group">
@@ -121,9 +144,18 @@
 									</div>
 									<form action="DashClient" method="post">
 
+
 										<div class="modal-body">
-
-
+											<div class="form-group">
+												<label for="exampleInputEmail1">Choisir le compte</label> <select
+													name="iban" class="form-control">
+													<c:if test="${trouve== true}">
+														<d:forEach items="${liste}" var="liste">
+															<option>${liste.getCodeIBN()}</option>
+														</d:forEach>
+													</c:if>
+												</select>
+											</div>
 											<div class="form-group">
 												<label for="exampleInputEmail1">Solde a retrait</label> <input
 													type="number" class="form-control" name="soldee"
@@ -143,9 +175,6 @@
 								</div>
 							</div>
 						</div>
-						<div
-							style="font-size: 120px; letter-spacing: 4px; text-align: center;">
-							1520 euro</div>
 						<!-- Modal -->
 						<div class="modal fade" id="exampleModal2" tabindex="-1"
 							role="dialog" aria-labelledby="exampleModalLabel"

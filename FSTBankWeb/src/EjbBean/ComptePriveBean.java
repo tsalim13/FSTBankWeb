@@ -13,17 +13,17 @@ import javax.persistence.Query;
 
 import EjbEntity.CParticulierPartage;
 import EjbEntity.CParticulierPrive;
+import EjbEntity.CProfessionnel;
 import EjbEntity.Compte;
 
-
 @Stateful
-public class ComptePriveBean implements ComptePriveRemote{
-	
+public class ComptePriveBean implements ComptePriveRemote {
+
 	@PersistenceContext
 	EntityManager em;
 
-    public ComptePriveBean() {
-    }
+	public ComptePriveBean() {
+	}
 
 	@Override
 	public CParticulierPrive addCompte(CParticulierPrive cpp) {
@@ -34,7 +34,8 @@ public class ComptePriveBean implements ComptePriveRemote{
 	@Override
 	public CParticulierPrive getCompte(int id) {
 		CParticulierPrive cp = em.find(CParticulierPrive.class, id);
-		if (cp == null) throw new RuntimeException("Compte introuvable");
+		if (cp == null)
+			throw new RuntimeException("Compte introgfuvable");
 		return cp;
 	}
 
@@ -45,34 +46,86 @@ public class ComptePriveBean implements ComptePriveRemote{
 	}
 
 	@Override
-	public void verser(int id, double mt) {
-		CParticulierPrive cp = getCompte(id);
-		cp.setSolde(cp.getSolde()+mt);		
+	public boolean verser(int id, double mt) {
+		CParticulierPrive cpp = em.find(CParticulierPrive.class, id);
+		if (cpp != null) {
+			cpp.setSolde(cpp.getSolde() + mt);
+			em.flush();
+			return true;
+		} else
+			return false;
+	}
+
+	public boolean retirer(int id, double mt, String typeCompte) {
+		if (typeCompte.equals("prive")) {
+			CParticulierPrive cpp = em.find(CParticulierPrive.class, id);
+			if (cpp != null) {
+				if (cpp.getSolde() < mt)
+					return false;
+				cpp.setSolde(cpp.getSolde() - mt);
+				em.flush();
+				return true;
+			}
+		}
+		else if (typeCompte.equals("partage")) {
+			CParticulierPartage cpp = em.find(CParticulierPartage.class, id);	
+			if (cpp != null) {
+				if (cpp.getSolde() < mt)
+					return false;
+				cpp.setSolde(cpp.getSolde() - mt);
+				em.flush();
+				return true;
+			}
+		}
+		else {
+			CProfessionnel cpp = em.find(CProfessionnel.class, id);
+			if (cpp != null) {
+				if (cpp.getSolde() < mt)
+					return false;
+				cpp.setSolde(cpp.getSolde() - mt);
+				em.flush();
+				return true;
+			}
+		}	
+		return false;
 	}
 
 	@Override
-	public void retirer(int id, double mt) {
-		CParticulierPrive cp = getCompte(id);
-		if(cp.getSolde()<mt)throw new RuntimeException("Solde insuffisant");
-		cp.setSolde(cp.getSolde()-mt);	
-	}
-
-	@Override
-	public void virement(int cp, int cp2, double mt) {
-		retirer(cp, mt);
-		verser(cp2, mt);
+	public boolean virement(int cp, int cp2, double mt, String typeCompte) {
+		if (retirer(cp, mt, typeCompte)) {
+			if (verser(cp2, mt)) {
+				return true;
+			}
+			else return false;
+		}
+		else 
+			return false;
+	
 	}
 
 	@Override
 	public ArrayList<CParticulierPrive> findCompteByClient(int id) {
-	
-			Query req = em.createQuery("from CParticulierPrive c where c.client.id="+id);
+		try {
+			Query req = em.createQuery("from CParticulierPrive c where c.client.id=" + id);
 			return (ArrayList<CParticulierPrive>) req.getResultList();
-			
-		
-			
-		
+
+		} catch (Exception e) {
+			return null;
+		}
+
 	}
-  
+
+	@Override
+	public CParticulierPrive findIdByIBAN(String iban) {
+		try {
+			Query req = em.createQuery("from CParticulierPrive c where c.codeIBN='" + iban + "'");
+			return (CParticulierPrive) req.getSingleResult();
+
+		} catch (Exception e) {
+			return null;
+		}
+
+	}
+
 
 }

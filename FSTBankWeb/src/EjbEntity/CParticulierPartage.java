@@ -7,8 +7,10 @@ import java.util.Set;
 import javax.persistence.*;
 
 @Entity
-public class CParticulierPartage extends Compte implements Serializable {
-
+public class CParticulierPartage  implements Serializable {
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private int id;
 	@ManyToMany
 	@JoinTable(name ="cpartager",
     joinColumns = { @JoinColumn(name = "cp_id") },
@@ -44,6 +46,15 @@ public class CParticulierPartage extends Compte implements Serializable {
 	public void setCodeIBN(String codeIBN) {
 		this.codeIBN = codeIBN;
 	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+	
 	
 
 }
