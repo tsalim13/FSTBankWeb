@@ -57,7 +57,7 @@
 																	<c:choose>
 																		<c:when test="${cl!= null}">
 																			<input name="client0" type="text"
-																				class="form-control" value="${cl.mail}" disabled>
+																				class="form-control" value="${cl.id}" disabled>
 																		</c:when>
 																		<c:otherwise>
 																			<div class="control-group">
@@ -165,7 +165,7 @@
 																<c:when test="${cl!= null}">
 																	<div class="form-group">
 																		<label for="exampleInputEmail1">Client</label> <input
-																			type="text" class="form-control" value="${cl.mail}"
+																			type="text" class="form-control" value="${cl.id}"
 																			disabled>
 																	</div>
 																</c:when>
@@ -214,7 +214,7 @@
 											<c:when test="${cl!= null}">
 												<div class="form-group">
 													<label for="exampleInputEmail1">Client</label> 
-													<input type="text" name="client0" class="form-control" value="${cl.mail}" disabled>
+													<input type="text" name="client0" class="form-control" value="${cl.id}" disabled>
 												</div>
 											</c:when>
 											<c:otherwise>

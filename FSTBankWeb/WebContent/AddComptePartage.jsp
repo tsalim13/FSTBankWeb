@@ -37,12 +37,6 @@
 							<label for="exampleInputEmail1">Client a partage le
 								Compte avec :</label>
 							<div class="controls">
-								<c:choose>
-									<c:when test="${cl!= null}">
-										<input name="client0" type="text" class="form-control"
-											value="${cl.mail}" disabled>
-									</c:when>
-									<c:otherwise>
 										<div class="control-group">
 											<div class="controls">
 												<select name="client0" class="form-control"
@@ -56,8 +50,6 @@
 											</div>
 										</div>
 										<br>
-									</c:otherwise>
-								</c:choose>
 							</div>
 
 							<div class="control-group">

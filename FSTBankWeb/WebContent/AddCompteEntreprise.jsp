@@ -22,7 +22,7 @@
 			<div class="box-inner">
 				<div class="box-header well" data-original-title="">
 					<h2>
-						<i class="glyphicon glyphicon-star-empty"></i> Ajouter compte particulier privé
+						<i class="glyphicon glyphicon-star-empty"></i> Ajouter compte professionnel 
 					</h2>
 				</div>
 				<div class="box-content">
@@ -31,25 +31,42 @@
 
 
 						<form action="AddCompteControlleur" method="post">
-							<input type="hidden" name="fornNum" value="2">
-									<div class="form-group">
-										<label for="exampleInputEmail1">Client</label>
-										<div class="control-group">
-											<div class="controls">
-												<select name="client0" class="form-control" data-rel="chosen">
-													<option value="" selected disabled>Choisir un client</option>
-													<c:forEach items="${clients}" var="client">
-														<option value="${client.id}">${client.mail}</option>
-													</c:forEach>
-												</select>
-											</div>
+										<input type="hidden" name="fornNum" value="3">
+												<div class="form-group">
+													<label for="exampleInputEmail1">Client</label>
+													<div class="control-group">
+														<div class="controls">
+															<select name="client0" class="form-control"
+																data-rel="chosen">
+																<option value="" selected disabled>choisir un
+																	client</option>
+																<c:forEach items="${clients}" var="client">
+																	<option value="${client.id}">${client.mail}</option>
+																</c:forEach>
+															</select>
+														</div>
+													</div>
+													<br>
+												</div>
+										<div class="form-group">
+											<label for="exampleInputEmail1">Nom de l'entreprise</label> <input
+												type="text" class="form-control" name="nom"
+												placeholder="Nom de l'entreprise" required>
 										</div>
-										<br>
-									</div>
-							<input type="reset" class="btn btn-secondary btn-sm"
-								value="Annuler">
-							<button class="btn btn-primary btn-sm">Confirmer</button>
-						</form>
+										<div class="form-group">
+											<label for="exampleInputEmail1">Adresse</label> <input
+												type="text" class="form-control" name="adresse"
+												placeholder="Adresse" required>
+										</div>
+										<div class="form-group">
+											<label for="exampleInputEmail1">Numero de Téléphone</label> <input
+												type="number" class="form-control" name="num"
+												placeholder="Numero de Tél" required>
+										</div>
+										<input type="reset" class="btn btn-secondary btn-sm"
+											value="Annuler">
+										<button class="btn btn-primary btn-sm">Confirmer</button>
+									</form>
 
 
 

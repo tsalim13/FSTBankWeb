@@ -151,12 +151,17 @@ public class AddCompteControlleur extends HttpServlet {
 			}
 			else if (formNum.equals("3")) {
 				int client0 = Integer.valueOf(request.getParameter("client0"));
-				
+				String nom = request.getParameter("nom");
+				String adresse = request.getParameter("adresse");
+				String tel = request.getParameter("num");
 				Client clt = new Client();
 				clt.setId(client0);
 				
 				CProfessionnel cppro =new CProfessionnel();
 				cppro.setClient(clt);
+				cppro.setNomEntreprise(nom);
+				cppro.setAdresse(adresse);
+				cppro.setTel(tel);
 				cppro.setCodeIBN(randomIban());
 				cppro.setSolde(0);
 				cpro.addCompte(cppro);
