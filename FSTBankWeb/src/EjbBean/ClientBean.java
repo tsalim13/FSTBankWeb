@@ -2,7 +2,6 @@ package EjbBean;
 
 import java.util.List;
 
-
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -11,14 +10,14 @@ import javax.persistence.Query;
 import EjbEntity.Client;
 
 @Stateful
-public class ClientBean implements ClientRemote{
+public class ClientBean implements ClientRemote {
 
 	@PersistenceContext(unitName = "dsFSTBank")
 	EntityManager em;
-	
-    public ClientBean() {
-        // TODO Auto-generated constructor stub
-    }
+
+	public ClientBean() {
+		// TODO Auto-generated constructor stub
+	}
 
 	@Override
 	public Client ajouter(Client clr) {
@@ -29,13 +28,13 @@ public class ClientBean implements ClientRemote{
 	@Override
 	public void supprimer() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void modifier() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -48,7 +47,16 @@ public class ClientBean implements ClientRemote{
 	public Client find(int id) {
 		Client cl = em.find(Client.class, id);
 		return cl;
-		 
+
 	}
 
+	@Override
+	public Client findByMail(String mail) {
+		try {
+			Query req = em.createQuery("from Client c where c.mail ='" + mail + "'");
+			return (Client) req.getSingleResult();
+		} catch (Exception e) {
+			return null;
+		}
+	}
 }
