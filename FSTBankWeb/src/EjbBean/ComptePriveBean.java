@@ -66,7 +66,7 @@ public class ComptePriveBean implements ComptePriveRemote{
 	@Override
 	public ArrayList<CParticulierPrive> findCompteByClient(int id) {
 	
-			Query req = em.createQuery("from CParticulierPrive c where 'c.client_id'="+id);
+			Query req = em.createQuery("from CParticulierPrive c where c.client.id="+id);
 			return (ArrayList<CParticulierPrive>) req.getResultList();
 			
 		

@@ -50,7 +50,7 @@ public class DashClient extends HttpServlet {
 		c = cpPrive.findCompteByClient(1);
 		if (c != null) {
 			System.out.println("yesssssssssssssssssss");
-			System.out.println(c);
+			System.out.println(c.get(0).getCodeIBN());
 		} else
 			System.out.println("non :/");
 
