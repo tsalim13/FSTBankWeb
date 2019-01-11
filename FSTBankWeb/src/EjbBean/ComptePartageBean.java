@@ -106,7 +106,9 @@ public class ComptePartageBean implements ComptePartageRemote{
 	@Override
 	public ArrayList<CParticulierPartage> findCompteByClient(int id) {
 		try {
-			Query req = em.createQuery("from CParticulierPartage c where c.client.id=" + id);
+			Query req = em.createQuery("from CParticulierPartage cp join cp.clients cl  where cl.id=" + id);
+			//from Restaurant r join r.owner o where o.username = :username
+			//Query req = em.createQuery("select a.firstName, a.lastName from Book b join b.authors a where b.id = :id
 			return (ArrayList<CParticulierPartage>) req.getResultList();
 
 		} catch (Exception e) {

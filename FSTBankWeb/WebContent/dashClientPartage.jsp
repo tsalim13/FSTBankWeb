@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="d"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="e"%>
+
 
 <%@ page isELIgnored="false"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -30,18 +29,18 @@
 				<div class="box-content">
 					<!-- put your content here -->
 					<div class="box-content">
-						<e:if test="${cptValide== false}">
+						<c:if test="${cptValide== false}">
 							<div class="alert alert-danger">ERREUR : Comple n'existe
 								pas...</div>
-						</e:if>
+						</c:if>
 
-						<e:if test="${soldeInsuffisant == 2}">
+						<c:if test="${soldeInsuffisant == 2}">
 							<div class="alert alert-danger">ERREUR : Solde Insuffisant.
 								. .</div>
-						</e:if>
-						<e:if test="${soldeInsuffisant == 1}">
+						</c:if>
+						<c:if test="${soldeInsuffisant == 1}">
 							<div class="alert alert-success">success . . .</div>
-						</e:if>
+						</c:if>
 
 						<c:choose>
 							<c:when test="${trouve == true}">
@@ -62,12 +61,12 @@
 											Relever de comptes</button>
 									</div>
 								</div>
-								<d:forEach items="${liste}" var="liste">
+								<c:forEach items="${liste}" var="liste">
 									<div class="alert alert-success">${liste.getCodeIBN()}</div>
 									<div
 										style="font-size: 120px; letter-spacing: 4px; text-align: center;">
 										${liste.getSolde()} DZ</div>
-								</d:forEach>
+								</c:forEach>
 							</c:when>
 							<c:otherwise>
 								<div
@@ -97,9 +96,9 @@
 												<label for="exampleInputEmail1">Choisir le compte</label> <select
 													name="iban" class="form-control">
 													<c:if test="${trouve== true}">
-														<d:forEach items="${liste}" var="liste">
+														<c:forEach items="${liste}" var="liste">
 															<option>${liste.getCodeIBN()}</option>
-														</d:forEach>
+														</c:forEach>
 													</c:if>
 												</select>
 											</div>
@@ -150,9 +149,9 @@
 												<label for="exampleInputEmail1">Choisir le compte</label> <select
 													name="iban" class="form-control">
 													<c:if test="${trouve== true}">
-														<d:forEach items="${liste}" var="liste">
+														<c:forEach items="${liste}" var="liste">
 															<option>${liste.getCodeIBN()}</option>
-														</d:forEach>
+														</c:forEach>
 													</c:if>
 												</select>
 											</div>
