@@ -27,6 +27,13 @@
             </div>
             <div class="box-content">
                 <!-- put your content here -->
+                
+                
+                
+                
+                
+                
+                
             </div>
         </div>
     </div>

@@ -18,6 +18,8 @@ public class SecurityFilter implements Filter {
 	@Override
 	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
 			throws ServletException, IOException {
+		
+		/*************
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpServletResponse response = (HttpServletResponse) res;
 		HttpSession session = request.getSession();
@@ -55,7 +57,7 @@ public class SecurityFilter implements Filter {
 			System.out.println("redirect loog");
 			response.sendRedirect(loginURI);
 
-		}
+		}*/chain.doFilter(req, res);
 
 	}
 }
