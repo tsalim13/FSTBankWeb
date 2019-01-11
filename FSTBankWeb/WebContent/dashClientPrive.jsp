@@ -72,7 +72,7 @@
 							<c:otherwise>
 								<div
 									style="font-size: 120px; letter-spacing: 4px; text-align: center;"
-									class="alert alert-danger">vous n'aver pas un compte</div>
+									class="alert alert-danger">vous n'aver pas un compte pariculier privé</div>
 							</c:otherwise>
 						</c:choose>
 
@@ -90,7 +90,7 @@
 											<span aria-hidden="true">&times;</span>
 										</button>
 									</div>
-									<form action="DashClient" method="post">
+									<form action="DashClientPrive" method="post">
 
 										<div class="modal-body">
 											<div class="form-group">
@@ -142,7 +142,7 @@
 											<span aria-hidden="true">&times;</span>
 										</button>
 									</div>
-									<form action="DashClient" method="post">
+									<form action="DashClientPrive" method="post">
 
 
 										<div class="modal-body">

@@ -22,8 +22,8 @@ import EjbEntity.CParticulierPrive;
 import EjbEntity.Client;
 import EjbEntity.Compte;
 
-@WebServlet("/DashClient")
-public class DashClient extends HttpServlet {
+@WebServlet("/DashClientPrive")
+public class DashClientPrive extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	@EJB
 	private ClientRemote cr;
@@ -37,9 +37,8 @@ public class DashClient extends HttpServlet {
 	private boolean cptValide = true;
 	private boolean trouve = false;
 	private int soldeInsuffisant = 0;
-	private ArrayList<Compte> allCompteClient = new ArrayList<Compte>();
 
-	public DashClient() {
+	public DashClientPrive() {
 		super();
 	}
 
@@ -58,7 +57,7 @@ public class DashClient extends HttpServlet {
 		request.setAttribute("cptValide", cptValide);
 		request.setAttribute("trouve", trouve);
 		request.setAttribute("soldeInsuffisant", soldeInsuffisant);
-		this.getServletContext().getRequestDispatcher("/dashClient.jsp").forward(request, response);
+		this.getServletContext().getRequestDispatcher("/dashClientPrive.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

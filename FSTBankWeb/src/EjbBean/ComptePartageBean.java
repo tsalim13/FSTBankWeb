@@ -1,5 +1,6 @@
 package EjbBean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.LocalBean;
@@ -103,13 +104,15 @@ public class ComptePartageBean implements ComptePartageRemote{
 	}
 
 	@Override
-	public CParticulierPartage findCompteByClient(int idClient) {
+	public ArrayList<CParticulierPartage> findCompteByClient(int id) {
 		try {
-			Query req = em.createQuery("from CParticulierPartage c where c.client_id ='" + idClient + "'");
-			return (CParticulierPartage) req.getSingleResult();
+			Query req = em.createQuery("from CParticulierPartage c where c.client.id=" + id);
+			return (ArrayList<CParticulierPartage>) req.getResultList();
+
 		} catch (Exception e) {
 			return null;
 		}
+
 	}
 
 	@Override
