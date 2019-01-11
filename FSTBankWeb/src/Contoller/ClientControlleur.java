@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import EjbBean.ClientRemote;
 
@@ -33,6 +34,7 @@ public class ClientControlleur extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		List<EjbEntity.Client> list = cr.afficher();
 		request.setAttribute("clients", list);
+		
 		this.getServletContext().getRequestDispatcher("/client.jsp").forward(request, response);
 
 	}
