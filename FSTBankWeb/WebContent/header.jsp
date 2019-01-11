@@ -131,9 +131,9 @@
                         <li class="accordion">
                             <a href="#"><i class="glyphicon glyphicon-plus"></i><span> Ajouter un compte</span></a>
                             <ul class="nav nav-pills nav-stacked">
-                                <li><a href="#">Compte particulier prive</a></li>
-                                <li><a href="#">Compte particulier partagé</a></li>
-                                <li><a href="#">Compte entreprise</a></li>
+                                <li><a href="AddCompteControlleur?form=2">Compte particulier privé</a></li>
+                                <li><a href="AddCompteControlleur?form=1">Compte particulier partagé</a></li>
+                                <li><a href="AddCompteControlleur?form=3">Compte entreprise</a></li>
                             </ul>
                         </li>
                         <li class="accordion">
