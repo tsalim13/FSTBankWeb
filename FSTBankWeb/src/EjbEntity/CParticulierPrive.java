@@ -11,6 +11,7 @@ public class CParticulierPrive extends Compte implements Serializable  {
 	@ManyToOne
 	private Client client ;
 	private double solde;
+	private String codeIBN;
 	private static final long serialVersionUID = 1L;
 
 	public CParticulierPrive() {
@@ -29,6 +30,14 @@ public class CParticulierPrive extends Compte implements Serializable  {
 	}
 	public void setSolde(double solde) {
 		this.solde = solde;
+	}
+
+	public String getCodeIBN() {
+		return codeIBN;
+	}
+
+	public void setCodeIBN(String codeIBN) {
+		this.codeIBN = codeIBN;
 	}
    
 }

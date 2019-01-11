@@ -15,30 +15,23 @@ import javax.servlet.http.HttpSession;
 public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
+   
     public Login() {
         super();
-        // TODO Auto-generated constructor stub
+       
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		/*HttpSession session = request.getSession();
-		session.setAttribute("user", null);*/
+		HttpSession session = request.getSession();
+		session.setAttribute("user", null);
 		
 		this.getServletContext().getRequestDispatcher("/login.jsp").forward(request, response);
 
-		
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String username = request.getParameter("username");
         String password = request.getParameter("password");
@@ -46,7 +39,7 @@ public class Login extends HttpServlet {
         if(username.equals(password))
         {
         	request.getSession().setAttribute("user", "Saliiiiimmm");
-        	response.sendRedirect(request.getContextPath() + "/ClientControlleur");
+        	response.sendRedirect(request.getContextPath() + "/DashClient");
         	return;
         }
         else

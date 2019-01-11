@@ -9,6 +9,7 @@ public class CProfessionnel extends Compte implements Serializable {
 	@ManyToOne
 	protected Client client ;
 	private double solde;
+	private String codeIBN;
 	
 	public double getSolde() {
 		return solde;
@@ -29,5 +30,14 @@ public class CProfessionnel extends Compte implements Serializable {
 	public void setClient(Client client) {
 		this.client = client;
 	}
+
+	public String getCodeIBN() {
+		return codeIBN;
+	}
+
+	public void setCodeIBN(String codeIBN) {
+		this.codeIBN = codeIBN;
+	}
+	
 
 }

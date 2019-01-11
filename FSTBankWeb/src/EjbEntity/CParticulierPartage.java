@@ -15,6 +15,7 @@ public class CParticulierPartage extends Compte implements Serializable {
     inverseJoinColumns = { @JoinColumn(name = "client_id") })
 	private Set<Client> clients;
 	private double solde;
+	private String codeIBN;
 
 	public double getSolde() {
 		return solde;
@@ -35,5 +36,14 @@ public class CParticulierPartage extends Compte implements Serializable {
 	public void Set(Set<Client> clientsList) {
 		this.clients = clientsList;
 	}
+
+	public String getCodeIBN() {
+		return codeIBN;
+	}
+
+	public void setCodeIBN(String codeIBN) {
+		this.codeIBN = codeIBN;
+	}
+	
 
 }

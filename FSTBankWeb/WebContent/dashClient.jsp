@@ -28,10 +28,10 @@
 					<!-- put your content here -->
 					<div class="box-content">
 						<c:if test="${cptValide== false}">
-							<div class="alert alert-danger">ERRER : Comple n'existe pas...</div>
+							<div class="alert alert-danger">ERRER : Comple n'existe
+								pas...</div>
 						</c:if>
-						<div class="alert alert-success">information de compte ici .
-							. .</div>
+						
 						<div class="alert alert-info" align="center">
 							<!-- Button trigger modal -->
 							<div style="width: 30%; float: left;">
@@ -53,6 +53,8 @@
 
 
 						</div>
+						<div class="alert alert-success">information de compte ici .
+							. .</div>
 						<!-- Modal -->
 						<div class="modal fade" id="exampleModal" tabindex="-1"
 							role="dialog" aria-labelledby="exampleModalLabel"
@@ -71,9 +73,17 @@
 
 										<div class="modal-body">
 											<div class="form-group">
-												<label for="exampleInputEmail1">Email address</label> <input
-													type="email" class="form-control" name="mail"
-													placeholder="Enter email" required>
+												<label for="exampleInputEmail1">Client</label> <select
+													name="iban" class="form-control">
+													<c:forEach items="${clients}" var="client">
+														<option>${client.mail}</option>
+													</c:forEach>
+												</select>
+											</div>
+											<div class="form-group">
+												<label for="exampleInputEmail1">IBAN code</label> <input
+													type="text" class="form-control" name="iban2"
+													placeholder="Entrer IBAN code" required>
 											</div>
 
 											<div class="form-group">
