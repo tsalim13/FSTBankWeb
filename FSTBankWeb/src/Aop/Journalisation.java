@@ -25,12 +25,14 @@ public class Journalisation {
 			FileWriter fw = new FileWriter(file.getAbsoluteFile(), true);
 			BufferedWriter bw = new BufferedWriter(fw);
 			PrintWriter out = new PrintWriter(bw);
-			//if (ctx.getMethod().getName().equals("retirer")) {
-				out.println("Action= " + ctx.getMethod().getName() + "parametre= "+ctx.getParameters().toString());
-
-			//}
-				System.out.println("parametre = " + ctx.getMethod().getParameters());
-
+			// out.println(écrire id du client ->variable de session);
+			if (ctx.getMethod().getName().equals("retirer")) {
+				out.println("Action= " + ctx.getMethod().getName() + " ,solde = " + ctx.getParameters()[1]
+						+ " ,Compte id= " + ctx.getParameters()[0] + " , type de compte= " + ctx.getParameters()[2]);
+			} else
+				out.println("Action= " + ctx.getMethod().getName() + " ,solde = " + ctx.getParameters()[2]
+						+ " ,Compte id= " + ctx.getParameters()[0] + " , type de compte= " + ctx.getParameters()[3]
+						+ " ,envoier vers compte id = " + ctx.getParameters()[1]);
 			bw.close();
 
 			System.out.println("Modification terminée!");
