@@ -1,5 +1,6 @@
 package EjbBean;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -16,9 +17,13 @@ import EjbEntity.CParticulierPartage;
 import EjbEntity.CParticulierPrive;
 import EjbEntity.CProfessionnel;
 import EjbEntity.Compte;
+import EjbEntity.Historique;
 
 @Stateful
-public class ComptePartageBean implements ComptePartageRemote {
+public class ComptePartageBean implements ComptePartageRemote, ObservableHist {
+
+	// private ArrayList<ObserverHist> histList = new ArrayList<ObserverHist>();
+	private Historique hist = new Historique();
 
 	@PersistenceContext
 	EntityManager em;
@@ -95,7 +100,8 @@ public class ComptePartageBean implements ComptePartageRemote {
 	public boolean virement(int cp, int cp2, double mt, String typeCompte) {
 		if (retirer(cp, mt, typeCompte)) {
 			if (verser(cp2, mt)) {
-				return true;
+					notifyHist(cp, cp2, mt);
+					return true;
 			} else
 				return false;
 		} else
@@ -113,7 +119,7 @@ public class ComptePartageBean implements ComptePartageRemote {
 			while (it.hasNext()) {
 				Object[] line = (Object[]) it.next();
 				CParticulierPartage cp = (CParticulierPartage) line[0];
-				list.add(cp);	
+				list.add(cp);
 			}
 			return (ArrayList<CParticulierPartage>) list;
 
@@ -132,6 +138,17 @@ public class ComptePartageBean implements ComptePartageRemote {
 		} catch (Exception e) {
 			return null;
 		}
+	}
+
+	@Override
+	public void notifyHist(int sender, int receiver, double solde) {
+		System.out.println("notify partage bean methoooodeee");
+		Date d;
+		hist.setId_receiver(receiver);
+		hist.setId_sender(sender);
+		hist.setTrasanction_solde(solde);
+		hist.update();
+
 	}
 
 }

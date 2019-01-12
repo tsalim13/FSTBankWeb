@@ -1,5 +1,6 @@
 package EjbBean;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,15 +13,20 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-import Aop.Interceptor;
+import Aop.Journalisation;
 import EjbEntity.CParticulierPartage;
 import EjbEntity.CParticulierPrive;
 import EjbEntity.CProfessionnel;
 import EjbEntity.Compte;
-@Interceptors ({Interceptor.class})
-@Stateful
-public class ComptePriveBean implements ComptePriveRemote {
+import EjbEntity.Historique;
+import EjbEntity.ObserverHist;
 
+@Stateful
+public class ComptePriveBean implements ComptePriveRemote, ObservableHist {
+
+	//private ArrayList<ObserverHist> histList = new ArrayList<ObserverHist>();
+	private Historique hist = new Historique();
+	
 	@PersistenceContext
 	EntityManager em;
 
@@ -57,7 +63,7 @@ public class ComptePriveBean implements ComptePriveRemote {
 		} else
 			return false;
 	}
-
+	@Interceptors ({Journalisation.class})
 	public boolean retirer(int id, double mt, String typeCompte) {
 		if (typeCompte.equals("prive")) {
 			CParticulierPrive cpp = em.find(CParticulierPrive.class, id);
@@ -91,11 +97,12 @@ public class ComptePriveBean implements ComptePriveRemote {
 		}	
 		return false;
 	}
-
+	@Interceptors ({Journalisation.class})
 	@Override
 	public boolean virement(int cp, int cp2, double mt, String typeCompte) {
 		if (retirer(cp, mt, typeCompte)) {
 			if (verser(cp2, mt)) {
+				notifyHist(cp,cp2,mt);
 				return true;
 			}
 			else return false;
@@ -127,6 +134,17 @@ public class ComptePriveBean implements ComptePriveRemote {
 			return null;
 		}
 
+	}
+
+	@Override
+	public void notifyHist(int sender, int receiver, double solde) {
+		System.out.println("notify prive bean methoooodeee");
+		Date d ; 
+		hist.setId_receiver(receiver);
+		hist.setId_sender(sender);
+		hist.setTrasanction_solde(solde);
+		hist.update();
+		
 	}
 
 

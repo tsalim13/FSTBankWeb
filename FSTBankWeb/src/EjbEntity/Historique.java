@@ -3,10 +3,15 @@ package EjbEntity;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.ejb.EJB;
 import javax.persistence.*;
 
+import EjbBean.ClientRemote;
+import EjbBean.HistBean;
+import EjbBean.HistRemote;
+
 @Entity
-public class Historique implements Serializable{
+public class Historique implements Serializable,ObserverHist{
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
@@ -16,7 +21,11 @@ public class Historique implements Serializable{
 	private Date dateTransaction;
 	
 	private static final long serialVersionUID = 1L;
-
+	
+	//static ne sera pas persister (ne seras pas dans la bdd)
+	@EJB
+	private static HistRemote hist;
+	
 	public Historique() {
 		super();
 	}
@@ -59,6 +68,14 @@ public class Historique implements Serializable{
 
 	public void setTrasanction_solde(double trasanction_solde) {
 		this.trasanction_solde = trasanction_solde;
+	}
+
+	@Override
+	public void update() {
+		System.out.println("update methoooodeee");
+		
+		hist.addHist(this);
+		
 	}
 
    
