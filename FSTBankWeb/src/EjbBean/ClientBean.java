@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import EjbEntity.Banquier;
 import EjbEntity.Client;
 
 @Stateful
@@ -59,4 +60,17 @@ public class ClientBean implements ClientRemote {
 			return null;
 		}
 	}
+	
+	
+	public Client clientLogin(String mail, String mdp) {
+		try {
+			Query req = em.createQuery("from Client c where c.mail='"+ mail+"' and c.mdp='"+mdp+"'");
+			return (Client) req.getSingleResult();
+
+		} catch (Exception e) {
+			return null;
+		}
+		
+	}
+	
 }

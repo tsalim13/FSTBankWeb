@@ -31,7 +31,7 @@
 					<!-- put your content here -->
 					<div class="box-content">
 						<e:if test="${cptValide== false}">
-							<div class="alert alert-danger">ERREUR : Comple n'existe
+							<div class="alert alert-danger">ERREUR : Compte n'existe
 								pas...</div>
 						</e:if>
 
@@ -63,7 +63,7 @@
 									</div>
 								</div>
 								<d:forEach items="${liste}" var="liste">
-									<div class="alert alert-success">${liste.getCodeIBN()}</div>
+									<div class="alert alert-success"><b>Code IBAN : </b>${liste.getCodeIBN()}</div>
 									<div
 										style="font-size: 120px; letter-spacing: 4px; text-align: center;">
 										${liste.getSolde()} DZ</div>
@@ -71,8 +71,8 @@
 							</c:when>
 							<c:otherwise>
 								<div
-									style="font-size: 120px; letter-spacing: 4px; text-align: center;"
-									class="alert alert-danger">vous n'aver pas un compte professionnel</div>
+									style="font-size: 40px; letter-spacing: 4px; text-align: center;"
+									class="alert alert-danger">vous n'avez pas de compte professionnel</div>
 							</c:otherwise>
 						</c:choose>
 

@@ -9,6 +9,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import EjbEntity.Banquier;
+import EjbEntity.CParticulierPrive;
 
 
 @Stateful
@@ -57,6 +58,19 @@ public class BanquierBean implements BanquierRemote{
 	public List<Banquier> afficher() {
 		Query req = em.createQuery("select b from Banquier b");
 		return req.getResultList();
+		
+	}
+	
+	
+	
+	public Banquier banquierLogin(String mail, String mdp) {
+		try {
+			Query req = em.createQuery("from Banquier b where b.mail='"+ mail+"' and b.mdp='"+mdp+"'");
+			return (Banquier) req.getSingleResult();
+
+		} catch (Exception e) {
+			return null;
+		}
 		
 	}
 

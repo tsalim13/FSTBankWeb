@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import EjbBean.ClientRemote;
 import EjbBean.ComptePartageBean;
@@ -47,9 +48,13 @@ public class DashClientPro extends HttpServlet {
 			throws ServletException, IOException {
 		// récupérer id du client . . .
 
+		HttpSession session = request.getSession();
+		int idc = (int) session.getAttribute("clientId");
+		
+		
 		// récupérer les comptes professionnel du client
 		ArrayList<CProfessionnel> liste = null;
-		liste = cpPro.findCompteByClient(1);
+		liste = cpPro.findCompteByClient(idc);
 		if (liste.size() != 0) {
 			trouve = true;
 		} else

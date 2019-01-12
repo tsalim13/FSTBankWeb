@@ -13,5 +13,5 @@ public interface BanquierRemote {
 	public boolean supprimer(int id);
 	public List<Banquier> afficher();
 	public boolean modifier(Banquier bnqm);
-	
+	public Banquier banquierLogin(String mail, String mdp);
 }

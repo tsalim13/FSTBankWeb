@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page isELIgnored="false"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
 <head>
@@ -46,7 +48,7 @@
         
     <div class="row">
         <div class="col-md-12 center login-header">
-            <h2>Welcome to Charisma</h2>
+            <h2>Welcome to FSTBank</h2>
         </div>
         <!--/span-->
     </div><!--/row-->
@@ -56,6 +58,11 @@
             <div class="alert alert-info">
                 Please login with your Username and Password.
             </div>
+            <c:if test="${ err == true }">
+            	<div class="alert alert-danger">
+                Veuillez saisir un mail et mot de passe valide
+            	</div>
+            </c:if>
             <form class="form-horizontal" action="Login" method="post">
                 <fieldset>
                     <div class="input-group input-group-lg">

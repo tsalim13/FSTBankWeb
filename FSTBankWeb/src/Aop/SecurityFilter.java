@@ -19,7 +19,7 @@ public class SecurityFilter implements Filter {
 	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
 			throws ServletException, IOException {
 		
-		/*************
+		
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpServletResponse response = (HttpServletResponse) res;
 		HttpSession session = request.getSession();
@@ -38,26 +38,28 @@ public class SecurityFilter implements Filter {
 
 		String loginURI = base + "Login";
 
-		System.out.println("complete  URL  " + completeURL);
 
-		System.out.println("base  " + base);
-		System.out.println("loginURI  " + loginURI);
-
-		boolean loggedIn = session.getAttribute("user") != null;
+		boolean loggedIn;
+		
+		if(session.getAttribute("banquierId") != null || session.getAttribute("clientId") != null)
+		{
+			loggedIn = true;
+		}
+		else {loggedIn = false;}
+		
+		
 		boolean loginRequest = completeURL.equals(loginURI);
-		System.out.println("bool req  " + loginRequest);
-		System.out.println("bool login  " + loggedIn);
+
 
 		if (loggedIn || loginRequest) {
-			System.out.println("loooogggggeeeeeeeeeeedddd");
-			System.out.println(session.getAttribute("user"));
+
 			chain.doFilter(request, response);
 
 		} else {
-			System.out.println("redirect loog");
+
 			response.sendRedirect(loginURI);
 
-		}*/chain.doFilter(req, res);
+		}
 
 	}
 }

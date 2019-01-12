@@ -62,16 +62,16 @@
 									</div>
 								</div>
 								<c:forEach items="${liste}" var="liste">
-									<div class="alert alert-success">${liste.getCodeIBN()}</div>
+									<div class="alert alert-success"><b>Code IBAN : </b>${liste.getCodeIBN()}</div>
 									<div
-										style="font-size: 120px; letter-spacing: 4px; text-align: center;">
+										style="font-size: 60px; letter-spacing: 4px; text-align: center;">
 										${liste.getSolde()} DZ</div>
 								</c:forEach>
 							</c:when>
 							<c:otherwise>
 								<div
-									style="font-size: 120px; letter-spacing: 4px; text-align: center;"
-									class="alert alert-danger">vous n'aver pas un compte particulier partagée</div>
+									style="font-size: 40px; letter-spacing: 4px; text-align: center;"
+									class="alert alert-danger">vous n'avez pas de compte particulier partagée</div>
 							</c:otherwise>
 						</c:choose>
 

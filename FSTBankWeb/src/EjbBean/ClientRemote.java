@@ -13,4 +13,5 @@ public interface ClientRemote {
 	public List<Client> afficher();
 	public Client find(int id);
 	public Client findByMail(String mail);
+	public Client clientLogin(String mail, String mdp);
 }

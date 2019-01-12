@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
 <head>
@@ -62,9 +63,7 @@
                     <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
-                    <li><a href="#">Profile</a></li>
-                    <li class="divider"></li>
-                    <li><a href="login.html">Logout</a></li>
+                    <li><a href="Logout">Logout</a></li>
                 </ul>
             </div>
             <!-- user dropdown ends -->
@@ -110,6 +109,7 @@
                         <li class="nav-header">Main</li>
                         <li><a class="ajax-link" href="index.html"><i class="glyphicon glyphicon-home"></i><span> Dashboard</span></a>
                         </li>
+                        <c:if test="${!empty(sessionScope.banquierId) }">
                         <li class="nav-header hidden-md">Banquier</li>
                         <li >
                             <a href="BanquierControlleur">Liste des banquiers</a>                    
@@ -119,6 +119,7 @@
                             <a href="ClientControlleur">Liste des clients</a>                    
                         </li>
                         <li class="nav-header hidden-md">Comptes</li>
+                        
                         <li class="accordion">
                             <a href="#"><i class="glyphicon glyphicon-plus"></i><span> Ajouter un compte</span></a>
                             <ul class="nav nav-pills nav-stacked">
@@ -127,12 +128,22 @@
                                 <li><a href="AddCompteControlleur?form=3">Compte entreprise</a></li>
                             </ul>
                         </li>
+                        </c:if>
                         <li class="accordion">
                             <a href="#"><i class="glyphicon glyphicon-plus"></i><span> Liste des comptes</span></a>
                             <ul class="nav nav-pills nav-stacked">
+                          <c:choose>
+                            <c:when test="${!empty(sessionScope.banquierId) }">
                                 <li><a href="CompteParticulierPrive">Compte particulier prive</a></li>
                                 <li><a href="CompteParticulierPartage">Compte particulier partagé</a></li>
                                 <li><a href="ComptePro">Compte entreprise</a></li>
+                               </c:when>
+                            <c:when test="${!empty(sessionScope.clientId) }">
+                                <li><a href="DashClientPrive">Compte particulier prive</a></li>
+                                <li><a href="DashClientPartage">Compte particulier partagé</a></li>
+                                <li><a href="DashClientPro">Compte entreprise</a></li>
+                            </c:when>
+                          </c:choose>
                             </ul>
                         </li>
                         

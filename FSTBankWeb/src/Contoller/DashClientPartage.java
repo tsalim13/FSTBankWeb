@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import EjbBean.ClientRemote;
 import EjbBean.ComptePartageBean;
@@ -48,9 +49,13 @@ public class DashClientPartage extends HttpServlet {
 			throws ServletException, IOException {
 		// récupérer id du client . . .
 
+		HttpSession session = request.getSession();
+		int idc = (int) session.getAttribute("clientId");
+		
+		
 		// récupérer les comptes Particulier partage du client
 		ArrayList<CParticulierPartage> liste = null;
-		liste = cpPartage.findCompteByClient(1);
+		liste = cpPartage.findCompteByClient(idc);
 		System.out.println("listeee ="+liste);
 		if (liste.size() != 0) {
 			System.out.println("id code ===="+liste.get(0).getId());
