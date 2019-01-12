@@ -8,6 +8,11 @@ public class Interceptor {
    public Object methodInterceptor(InvocationContext ctx) throws Exception {
       System.out.println("*** Intercepting call to LibraryBean method: " 
       + ctx.getMethod().getName());
-      return ctx.proceed();
+
+      Object result = ctx.proceed();
+      
+      System.out.println(result);
+      
+      return result;
    }
 }

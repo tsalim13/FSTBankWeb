@@ -23,7 +23,7 @@
 				<div class="box-header well" data-original-title="">
 					<h2>
 						<i class="glyphicon glyphicon-star-empty"></i> Ajouter compte
-						particulier privé
+						particulier partagé
 					</h2>
 				</div>
 				<div class="box-content">
