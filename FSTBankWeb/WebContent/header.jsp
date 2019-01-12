@@ -110,22 +110,13 @@
                         <li class="nav-header">Main</li>
                         <li><a class="ajax-link" href="index.html"><i class="glyphicon glyphicon-home"></i><span> Dashboard</span></a>
                         </li>
-                        <li class="nav-header hidden-md">Clients</li>
-                        <li class="accordion">
-                            <a href="#"><i class="glyphicon glyphicon-plus"></i><span> Ajouter un client</span></a>
-                            <ul class="nav nav-pills nav-stacked">
-                                <li><a href="#">Compte particulier prive</a></li>
-                                <li><a href="#">Compte particulier partagé</a></li>
-                                <li><a href="#">Compte entreprise</a></li>
-                            </ul>
+                        <li class="nav-header hidden-md">Banquier</li>
+                        <li >
+                            <a href="BanquierControlleur">Liste des banquiers</a>                    
                         </li>
-                        <li class="accordion">
-                            <a href="#"><i class="glyphicon glyphicon-plus"></i><span> Liste des clients</span></a>
-                            <ul class="nav nav-pills nav-stacked">
-                                <li><a href="#">Compte particulier prive</a></li>
-                                <li><a href="#">Compte particulier partagé</a></li>
-                                <li><a href="#">Compte entreprise</a></li>
-                            </ul>
+                        <li class="nav-header hidden-md">Clients</li>    
+                        <li >
+                            <a href="ClientControlleur">Liste des clients</a>                    
                         </li>
                         <li class="nav-header hidden-md">Comptes</li>
                         <li class="accordion">
@@ -139,11 +130,12 @@
                         <li class="accordion">
                             <a href="#"><i class="glyphicon glyphicon-plus"></i><span> Liste des comptes</span></a>
                             <ul class="nav nav-pills nav-stacked">
-                                <li><a href="#">Compte particulier prive</a></li>
-                                <li><a href="#">Compte particulier partagé</a></li>
-                                <li><a href="#">Compte entreprise</a></li>
+                                <li><a href="CompteParticulierPrive">Compte particulier prive</a></li>
+                                <li><a href="CompteParticulierPartage">Compte particulier partagé</a></li>
+                                <li><a href="ComptePro">Compte entreprise</a></li>
                             </ul>
                         </li>
+                        
                 </div>
             </div>
         </div>
