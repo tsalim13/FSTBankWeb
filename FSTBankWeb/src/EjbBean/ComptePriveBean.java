@@ -12,12 +12,12 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-import Aop.Interceptor;
+import Aop.Journalisation;
 import EjbEntity.CParticulierPartage;
 import EjbEntity.CParticulierPrive;
 import EjbEntity.CProfessionnel;
 import EjbEntity.Compte;
-@Interceptors ({Interceptor.class})
+
 @Stateful
 public class ComptePriveBean implements ComptePriveRemote {
 
@@ -57,7 +57,7 @@ public class ComptePriveBean implements ComptePriveRemote {
 		} else
 			return false;
 	}
-
+	@Interceptors ({Journalisation.class})
 	public boolean retirer(int id, double mt, String typeCompte) {
 		if (typeCompte.equals("prive")) {
 			CParticulierPrive cpp = em.find(CParticulierPrive.class, id);
@@ -91,7 +91,7 @@ public class ComptePriveBean implements ComptePriveRemote {
 		}	
 		return false;
 	}
-
+	@Interceptors ({Journalisation.class})
 	@Override
 	public boolean virement(int cp, int cp2, double mt, String typeCompte) {
 		if (retirer(cp, mt, typeCompte)) {
