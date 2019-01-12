@@ -43,7 +43,7 @@ public class ComptePartageBean implements ComptePartageRemote {
 
 	@Override
 	public List<CParticulierPartage> listComptes() {
-		Query req = em.createQuery("select * from cparticulierprive");
+		Query req = em.createQuery("select c from CParticulierPartage c");
 		return req.getResultList();
 	}
 

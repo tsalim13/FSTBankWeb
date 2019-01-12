@@ -41,7 +41,7 @@ public class ComptePriveBean implements ComptePriveRemote {
 
 	@Override
 	public List<CParticulierPrive> listComptes() {
-		Query req = em.createQuery("select * from cparticulierprive");
+		Query req = em.createQuery("select c from CParticulierPrive c");
 		return req.getResultList();
 	}
 

@@ -43,7 +43,7 @@ public class CompteProBean implements CompteProRemote {
 
 	@Override
 	public List<CProfessionnel> listComptes() {
-		Query req = em.createQuery("select * from cparticulierprive");
+		Query req = em.createQuery("select c from CProfessionnel c");
 		return req.getResultList();
 	}
 
