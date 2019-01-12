@@ -18,8 +18,10 @@ import EjbEntity.CParticulierPartage;
 import EjbEntity.CParticulierPrive;
 import EjbEntity.CProfessionnel;
 import EjbEntity.Compte;
+
 import EjbEntity.Historique;
 import EjbEntity.ObserverHist;
+
 
 @Stateful
 public class ComptePriveBean implements ComptePriveRemote, ObservableHist {
