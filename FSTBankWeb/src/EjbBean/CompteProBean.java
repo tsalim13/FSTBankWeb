@@ -1,24 +1,32 @@
 package EjbBean;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateful;
 import javax.ejb.Stateless;
+import javax.interceptor.Interceptors;
 import javax.management.RuntimeErrorException;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import Aop.Journalisation;
 import EjbEntity.CParticulierPartage;
 import EjbEntity.CParticulierPrive;
 import EjbEntity.CProfessionnel;
 import EjbEntity.Client;
 import EjbEntity.Compte;
+import EjbEntity.Historique;
 
 @Stateful
-public class CompteProBean implements CompteProRemote {
+public class CompteProBean implements CompteProRemote, ObservableHist {
+	@EJB
+	HistRemote r;
+	private boolean vir = false;
 
 	@PersistenceContext
 	EntityManager em;
@@ -57,7 +65,7 @@ public class CompteProBean implements CompteProRemote {
 		} else
 			return false;
 	}
-
+	@Interceptors({ Journalisation.class })
 	@Override
 	public boolean retirer(int id, double mt, String typeCompte) {
 		if (typeCompte.equals("prive")) {
@@ -67,6 +75,8 @@ public class CompteProBean implements CompteProRemote {
 					return false;
 				cpp.setSolde(cpp.getSolde() - mt);
 				em.flush();
+				if (vir == false)
+					notifyHist(id, 0, mt);
 				return true;
 			}
 		}
@@ -77,6 +87,8 @@ public class CompteProBean implements CompteProRemote {
 					return false;
 				cpp.setSolde(cpp.getSolde() - mt);
 				em.flush();
+				if (vir == false)
+					notifyHist(id, 0, mt);
 				return true;
 			}
 		}
@@ -87,16 +99,21 @@ public class CompteProBean implements CompteProRemote {
 					return false;
 				cpp.setSolde(cpp.getSolde() - mt);
 				em.flush();
+				if (vir == false)
+					notifyHist(id, 0, mt);
 				return true;
 			}
 		}	
 		return false;
 	}
-
+	@Interceptors({ Journalisation.class })
 	@Override
 	public boolean virement(int cp, int cp2, double mt, String typeCompte) {
+		vir = true;
 		if (retirer(cp, mt,typeCompte)) {
 			if (verser(cp2, mt)) {
+				notifyHist(cp, cp2, mt);
+				vir = false;
 				return true;
 			}
 			else return false;
@@ -124,6 +141,21 @@ public class CompteProBean implements CompteProRemote {
 		} catch (Exception e) {
 			return null;
 		}
+	}
+
+	@Override
+	public void notifyHist(int sender, int receiver, double solde) {
+
+		Date d;
+		Historique h = new Historique();
+		h.setId_sender(sender);
+		if (receiver != 0) {
+			h.setId_receiver(receiver);
+		}
+		h.setTrasanction_solde(solde);
+		r.update(h);
+
+		
 	}
 
 }

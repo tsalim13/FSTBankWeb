@@ -23,13 +23,13 @@ import EjbEntity.Compte;
 import EjbEntity.Historique;
 import EjbEntity.ObserverHist;
 
-
 @Stateful
 public class ComptePriveBean implements ComptePriveRemote, ObservableHist {
 
-	//private ArrayList<ObserverHist> histList = new ArrayList<ObserverHist>();
+	// private ArrayList<ObserverHist> histList = new ArrayList<ObserverHist>();
 	@EJB
 	HistRemote r;
+	private boolean vir = false;
 	@PersistenceContext
 	EntityManager em;
 
@@ -66,7 +66,8 @@ public class ComptePriveBean implements ComptePriveRemote, ObservableHist {
 		} else
 			return false;
 	}
-	@Interceptors ({Journalisation.class})
+
+	@Interceptors({ Journalisation.class })
 	public boolean retirer(int id, double mt, String typeCompte) {
 		if (typeCompte.equals("prive")) {
 			CParticulierPrive cpp = em.find(CParticulierPrive.class, id);
@@ -75,44 +76,50 @@ public class ComptePriveBean implements ComptePriveRemote, ObservableHist {
 					return false;
 				cpp.setSolde(cpp.getSolde() - mt);
 				em.flush();
+				if (vir == false)
+					notifyHist(id, 0, mt);
 				return true;
 			}
-		}
-		else if (typeCompte.equals("partage")) {
-			CParticulierPartage cpp = em.find(CParticulierPartage.class, id);	
+		} else if (typeCompte.equals("partage")) {
+			CParticulierPartage cpp = em.find(CParticulierPartage.class, id);
 			if (cpp != null) {
 				if (cpp.getSolde() < mt)
 					return false;
 				cpp.setSolde(cpp.getSolde() - mt);
 				em.flush();
+				if (vir == false)
+					notifyHist(id, 0, mt);
 				return true;
 			}
-		}
-		else {
+		} else {
 			CProfessionnel cpp = em.find(CProfessionnel.class, id);
 			if (cpp != null) {
 				if (cpp.getSolde() < mt)
 					return false;
 				cpp.setSolde(cpp.getSolde() - mt);
 				em.flush();
+				if (vir == false)
+					notifyHist(id, 0, mt);
 				return true;
 			}
-		}	
+		}
 		return false;
 	}
-	@Interceptors ({Journalisation.class})
+
+	@Interceptors({ Journalisation.class })
 	@Override
 	public boolean virement(int cp, int cp2, double mt, String typeCompte) {
+		vir = true;
 		if (retirer(cp, mt, typeCompte)) {
 			if (verser(cp2, mt)) {
-				notifyHist(cp,cp2,mt);
+				notifyHist(cp, cp2, mt);
+				vir = false;
 				return true;
-			}
-			else return false;
-		}
-		else 
+			} else
+				return false;
+		} else
 			return false;
-	
+
 	}
 
 	@Override
@@ -141,17 +148,15 @@ public class ComptePriveBean implements ComptePriveRemote, ObservableHist {
 
 	@Override
 	public void notifyHist(int sender, int receiver, double solde) {
-		System.out.println("notify prive bean methoooodeee");
-		Date d ; 
+
+		Date d;
 		Historique h = new Historique();
-		h.setId_receiver(receiver);
 		h.setId_sender(sender);
+		if (receiver != 0) {
+			h.setId_receiver(receiver);
+		}
 		h.setTrasanction_solde(solde);
-		
-		
 		r.update(h);
-		
+
 	}
-
-
 }

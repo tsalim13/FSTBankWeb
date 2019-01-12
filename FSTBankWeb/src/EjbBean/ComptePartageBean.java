@@ -5,14 +5,17 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateful;
 import javax.ejb.Stateless;
+import javax.interceptor.Interceptors;
 import javax.management.RuntimeErrorException;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import Aop.Journalisation;
 import EjbEntity.CParticulierPartage;
 import EjbEntity.CParticulierPrive;
 import EjbEntity.CProfessionnel;
@@ -23,7 +26,9 @@ import EjbEntity.Historique;
 public class ComptePartageBean implements ComptePartageRemote, ObservableHist {
 
 	// private ArrayList<ObserverHist> histList = new ArrayList<ObserverHist>();
-	private Historique hist = new Historique();
+	@EJB
+	HistRemote r;
+	private boolean vir = false;
 
 	@PersistenceContext
 	EntityManager em;
@@ -62,7 +67,7 @@ public class ComptePartageBean implements ComptePartageRemote, ObservableHist {
 		} else
 			return false;
 	}
-
+	@Interceptors({ Journalisation.class })
 	@Override
 	public boolean retirer(int id, double mt, String typeCompte) {
 		if (typeCompte.equals("prive")) {
@@ -72,6 +77,8 @@ public class ComptePartageBean implements ComptePartageRemote, ObservableHist {
 					return false;
 				cpp.setSolde(cpp.getSolde() - mt);
 				em.flush();
+				if (vir == false)
+					notifyHist(id, 0, mt);
 				return true;
 			}
 		} else if (typeCompte.equals("partage")) {
@@ -81,6 +88,8 @@ public class ComptePartageBean implements ComptePartageRemote, ObservableHist {
 					return false;
 				cpp.setSolde(cpp.getSolde() - mt);
 				em.flush();
+				if (vir == false)
+					notifyHist(id, 0, mt);
 				return true;
 			}
 		} else {
@@ -90,17 +99,22 @@ public class ComptePartageBean implements ComptePartageRemote, ObservableHist {
 					return false;
 				cpp.setSolde(cpp.getSolde() - mt);
 				em.flush();
+				if (vir == false)
+					notifyHist(id, 0, mt);
 				return true;
 			}
 		}
 		return false;
 	}
-
+	@Interceptors({ Journalisation.class })
 	@Override
 	public boolean virement(int cp, int cp2, double mt, String typeCompte) {
+		vir = true;
 		if (retirer(cp, mt, typeCompte)) {
 			if (verser(cp2, mt)) {
 					notifyHist(cp, cp2, mt);
+					notifyHist(cp, cp2, mt);
+					vir = false;
 					return true;
 			} else
 				return false;
@@ -142,19 +156,15 @@ public class ComptePartageBean implements ComptePartageRemote, ObservableHist {
 
 	@Override
 	public void notifyHist(int sender, int receiver, double solde) {
-		// TODO Auto-generated method stub
+		Date d;
+		Historique h = new Historique();
+		h.setId_sender(sender);
+		if (receiver != 0) {
+			h.setId_receiver(receiver);
+		}
+		h.setTrasanction_solde(solde);
+		r.update(h);
 		
 	}
-
-	/*@Override
-	public void notifyHist(int sender, int receiver, double solde) {
-		System.out.println("notify partage bean methoooodeee");
-		Date d;
-		hist.setId_receiver(receiver);
-		hist.setId_sender(sender);
-		hist.setTrasanction_solde(solde);
-		hist.update();
-
-	}*/
 
 }
