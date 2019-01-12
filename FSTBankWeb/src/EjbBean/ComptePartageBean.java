@@ -1,6 +1,7 @@
 package EjbBean;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.ejb.LocalBean;
@@ -17,14 +18,14 @@ import EjbEntity.CProfessionnel;
 import EjbEntity.Compte;
 
 @Stateful
-public class ComptePartageBean implements ComptePartageRemote{
-	
+public class ComptePartageBean implements ComptePartageRemote {
+
 	@PersistenceContext
 	EntityManager em;
 
-    public ComptePartageBean() {
-        // TODO Auto-generated constructor stub
-    }
+	public ComptePartageBean() {
+		// TODO Auto-generated constructor stub
+	}
 
 	@Override
 	public CParticulierPartage addCompte(CParticulierPartage cpp) {
@@ -35,7 +36,8 @@ public class ComptePartageBean implements ComptePartageRemote{
 	@Override
 	public CParticulierPartage getCompte(int id) {
 		CParticulierPartage cp = em.find(CParticulierPartage.class, id);
-		if (cp == null) throw new RuntimeException("Compte introuvable");
+		if (cp == null)
+			throw new RuntimeException("Compte introuvable");
 		return cp;
 	}
 
@@ -46,14 +48,14 @@ public class ComptePartageBean implements ComptePartageRemote{
 	}
 
 	@Override
-	public boolean verser(int id, double mt) {		
+	public boolean verser(int id, double mt) {
 		CParticulierPartage cpp = em.find(CParticulierPartage.class, id);
 		if (cpp != null) {
 			cpp.setSolde(cpp.getSolde() + mt);
 			em.flush();
 			return true;
 		} else
-			return false;		
+			return false;
 	}
 
 	@Override
@@ -67,9 +69,8 @@ public class ComptePartageBean implements ComptePartageRemote{
 				em.flush();
 				return true;
 			}
-		}
-		else if (typeCompte.equals("partage")) {
-			CParticulierPartage cpp = em.find(CParticulierPartage.class, id);	
+		} else if (typeCompte.equals("partage")) {
+			CParticulierPartage cpp = em.find(CParticulierPartage.class, id);
 			if (cpp != null) {
 				if (cpp.getSolde() < mt)
 					return false;
@@ -77,8 +78,7 @@ public class ComptePartageBean implements ComptePartageRemote{
 				em.flush();
 				return true;
 			}
-		}
-		else {
+		} else {
 			CProfessionnel cpp = em.find(CProfessionnel.class, id);
 			if (cpp != null) {
 				if (cpp.getSolde() < mt)
@@ -87,19 +87,18 @@ public class ComptePartageBean implements ComptePartageRemote{
 				em.flush();
 				return true;
 			}
-		}	
+		}
 		return false;
 	}
 
 	@Override
 	public boolean virement(int cp, int cp2, double mt, String typeCompte) {
-		if (retirer(cp, mt ,typeCompte)) {
+		if (retirer(cp, mt, typeCompte)) {
 			if (verser(cp2, mt)) {
 				return true;
-			}
-			else return false;
-		}
-		else 
+			} else
+				return false;
+		} else
 			return false;
 	}
 
@@ -107,9 +106,16 @@ public class ComptePartageBean implements ComptePartageRemote{
 	public ArrayList<CParticulierPartage> findCompteByClient(int id) {
 		try {
 			Query req = em.createQuery("from CParticulierPartage cp join cp.clients cl  where cl.id=" + id);
-			//from Restaurant r join r.owner o where o.username = :username
-			//Query req = em.createQuery("select a.firstName, a.lastName from Book b join b.authors a where b.id = :id
-			return (ArrayList<CParticulierPartage>) req.getResultList();
+
+			List<Object[]> res = req.getResultList();
+			List<CParticulierPartage> list = new ArrayList<CParticulierPartage>();
+			Iterator it = res.iterator();
+			while (it.hasNext()) {
+				Object[] line = (Object[]) it.next();
+				CParticulierPartage cp = (CParticulierPartage) line[0];
+				list.add(cp);	
+			}
+			return (ArrayList<CParticulierPartage>) list;
 
 		} catch (Exception e) {
 			return null;
@@ -127,7 +133,5 @@ public class ComptePartageBean implements ComptePartageRemote{
 			return null;
 		}
 	}
-
-	
 
 }

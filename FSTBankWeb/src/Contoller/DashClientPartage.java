@@ -53,6 +53,7 @@ public class DashClientPartage extends HttpServlet {
 		liste = cpPartage.findCompteByClient(1);
 		System.out.println("listeee ="+liste);
 		if (liste.size() != 0) {
+			System.out.println("id code ===="+liste.get(0).getId());
 			trouve = true;
 		} else
 			trouve = false;
@@ -99,7 +100,7 @@ public class DashClientPartage extends HttpServlet {
 					}
 				} else {
 					if (cpPartage.findIdByIBAN(iban2) != null) {
-						if (cpPartage.virement(cpPro.findIdByIBAN(iban).getId(),
+						if (cpPartage.virement(cpPartage.findIdByIBAN(iban).getId(),
 								cpPartage.findIdByIBAN(iban2).getId(), Double.parseDouble(solde), "partage")) {
 							soldeInsuffisant = 1;
 							doGet(request, response);
