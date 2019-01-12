@@ -6,16 +6,18 @@ import java.util.List;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateful;
 import javax.ejb.Stateless;
+import javax.interceptor.Interceptors;
 import javax.management.RuntimeErrorException;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import Aop.Interceptor;
 import EjbEntity.CParticulierPartage;
 import EjbEntity.CParticulierPrive;
 import EjbEntity.CProfessionnel;
 import EjbEntity.Compte;
-
+@Interceptors ({Interceptor.class})
 @Stateful
 public class ComptePriveBean implements ComptePriveRemote {
 
@@ -41,7 +43,7 @@ public class ComptePriveBean implements ComptePriveRemote {
 
 	@Override
 	public List<CParticulierPrive> listComptes() {
-		Query req = em.createQuery("select * from cparticulierprive");
+		Query req = em.createQuery("select c from CParticulierPrive c");
 		return req.getResultList();
 	}
 
