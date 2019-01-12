@@ -27,10 +27,13 @@
 				</div>
 				<div class="box-content">
 					<!-- put your content here -->
+					<c:if test="${done == true}">
+						<div class="alert alert-success">success . . .</div>
+					</c:if>
 
 
 
-						<form action="AddCompteControlleur" method="post">
+					<form action="AddCompteControlleur" method="post">
 										<input type="hidden" name="fornNum" value="3">
 												<div class="form-group">
 													<label for="exampleInputEmail1">Client</label>

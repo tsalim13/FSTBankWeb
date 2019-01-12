@@ -26,6 +26,7 @@ import EjbEntity.Client;
 public class AddCompteControlleur extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private int idClient = 0;
+	private boolean done = false;
 
 	@EJB
 	private ClientRemote cr;
@@ -65,6 +66,8 @@ public class AddCompteControlleur extends HttpServlet {
 			
 		} else {
 			request.setAttribute("cl", cl);
+			
+			
 			this.getServletContext().getRequestDispatcher("/AddCompte.jsp").forward(request, response);
 		}
 	}
@@ -86,6 +89,10 @@ public class AddCompteControlleur extends HttpServlet {
 				cpp.setCodeIBN(randomIban());
 				cpp.setSolde(0);
 				cp.addCompte(cpp);
+				done = true;
+				request.setAttribute("done", done);
+				this.getServletContext().getRequestDispatcher("/AddComptePrive.jsp").forward(request, response);
+				done =false;
 			}
 			else if (formNum.equals("1")) {
 				String clients0 = request.getParameter("client0");
@@ -148,6 +155,10 @@ public class AddCompteControlleur extends HttpServlet {
 				cppr.setCodeIBN(randomIban());
 				cppr.setSolde(0);
 				cpr.addCompte(cppr);
+				done = true;
+				request.setAttribute("done", done);
+				this.getServletContext().getRequestDispatcher("/AddComptePartage.jsp").forward(request, response);
+				done =false;
 			}
 			else if (formNum.equals("3")) {
 				int client0 = Integer.valueOf(request.getParameter("client0"));
@@ -165,6 +176,10 @@ public class AddCompteControlleur extends HttpServlet {
 				cppro.setCodeIBN(randomIban());
 				cppro.setSolde(0);
 				cpro.addCompte(cppro);
+				done = true;
+				request.setAttribute("done", done);
+				this.getServletContext().getRequestDispatcher("/AddCompteEntreprise.jsp").forward(request, response);
+				done =false;
 			}
 		}
 		else

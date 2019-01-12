@@ -28,7 +28,9 @@
 				</div>
 				<div class="box-content">
 					<!-- put your content here -->
-
+					<c:if test="${done == true}">
+						<div class="alert alert-success">success . . .</div>
+					</c:if>
 
 
 					<form action="AddCompteControlleur" method="post">
@@ -37,19 +39,17 @@
 							<label for="exampleInputEmail1">Client a partage le
 								Compte avec :</label>
 							<div class="controls">
-										<div class="control-group">
-											<div class="controls">
-												<select name="client0" class="form-control"
-													data-rel="chosen">
-													<option value="" selected disabled>choisir un
-														client</option>
-													<c:forEach items="${clients}" var="client">
-														<option value="${client.id}">${client.mail}</option>
-													</c:forEach>
-												</select>
-											</div>
-										</div>
-										<br>
+								<div class="control-group">
+									<div class="controls">
+										<select name="client0" class="form-control" data-rel="chosen">
+											<option value="" selected disabled>choisir un client</option>
+											<c:forEach items="${clients}" var="client">
+												<option value="${client.id}">${client.mail}</option>
+											</c:forEach>
+										</select>
+									</div>
+								</div>
+								<br>
 							</div>
 
 							<div class="control-group">

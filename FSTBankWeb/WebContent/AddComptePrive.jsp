@@ -27,6 +27,9 @@
 				</div>
 				<div class="box-content">
 					<!-- put your content here -->
+					<c:if test="${done == true}">
+						<div class="alert alert-success">success . . .</div>
+					</c:if>
 
 
 
