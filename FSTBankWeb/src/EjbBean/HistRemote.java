@@ -7,5 +7,6 @@ import EjbEntity.Historique;
 @Remote
 public interface HistRemote {
 
-	public Historique addHist(Historique h);
+
+	public void update(Historique h);
 }

@@ -142,6 +142,12 @@ public class ComptePartageBean implements ComptePartageRemote, ObservableHist {
 
 	@Override
 	public void notifyHist(int sender, int receiver, double solde) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	/*@Override
+	public void notifyHist(int sender, int receiver, double solde) {
 		System.out.println("notify partage bean methoooodeee");
 		Date d;
 		hist.setId_receiver(receiver);
@@ -149,6 +155,6 @@ public class ComptePartageBean implements ComptePartageRemote, ObservableHist {
 		hist.setTrasanction_solde(solde);
 		hist.update();
 
-	}
+	}*/
 
 }

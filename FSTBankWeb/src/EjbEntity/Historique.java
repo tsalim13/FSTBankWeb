@@ -7,11 +7,12 @@ import javax.ejb.EJB;
 import javax.persistence.*;
 
 import EjbBean.ClientRemote;
+import EjbBean.ComptePriveBean;
 import EjbBean.HistBean;
 import EjbBean.HistRemote;
 
 @Entity
-public class Historique implements Serializable,ObserverHist{
+public class Historique implements Serializable{
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
@@ -68,15 +69,5 @@ public class Historique implements Serializable,ObserverHist{
 
 	public void setTrasanction_solde(double trasanction_solde) {
 		this.trasanction_solde = trasanction_solde;
-	}
-
-	@Override
-	public void update() {
-		System.out.println("update methoooodeee");
-		
-		hist.addHist(this);
-		
-	}
-
-   
+	} 
 }

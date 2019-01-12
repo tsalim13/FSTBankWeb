@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateful;
 import javax.ejb.Stateless;
@@ -27,8 +28,8 @@ import EjbEntity.ObserverHist;
 public class ComptePriveBean implements ComptePriveRemote, ObservableHist {
 
 	//private ArrayList<ObserverHist> histList = new ArrayList<ObserverHist>();
-	private Historique hist = new Historique();
-	
+	@EJB
+	HistRemote r;
 	@PersistenceContext
 	EntityManager em;
 
@@ -142,10 +143,13 @@ public class ComptePriveBean implements ComptePriveRemote, ObservableHist {
 	public void notifyHist(int sender, int receiver, double solde) {
 		System.out.println("notify prive bean methoooodeee");
 		Date d ; 
-		hist.setId_receiver(receiver);
-		hist.setId_sender(sender);
-		hist.setTrasanction_solde(solde);
-		hist.update();
+		Historique h = new Historique();
+		h.setId_receiver(receiver);
+		h.setId_sender(sender);
+		h.setTrasanction_solde(solde);
+		
+		
+		r.update(h);
 		
 	}
 

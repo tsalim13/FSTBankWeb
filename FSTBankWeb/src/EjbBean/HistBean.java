@@ -5,24 +5,21 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import EjbEntity.Historique;
+import EjbEntity.ObserverHist;
 
 @Stateful
-public class HistBean implements HistRemote{
+public class HistBean implements HistRemote, ObserverHist {
 
 	@PersistenceContext
 	EntityManager em;
 
 	public HistBean() {
-		
+
 	}
-	
+
 	@Override
-	public Historique addHist(Historique h) {
-		
+	public void update(Historique h) {
 		em.persist(h);
-		System.out.println("add hist methoooodeee");
-		return h;
-		
 	}
 
 }
