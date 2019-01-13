@@ -65,7 +65,7 @@
 								<d:forEach items="${liste}" var="liste">
 									<div class="alert alert-success"><b>Code IBAN : </b>${liste.getCodeIBN()}</div>
 									<div
-										style="font-size: 120px; letter-spacing: 4px; text-align: center;">
+										style="font-size: 60px; letter-spacing: 4px; text-align: center;">
 										${liste.getSolde()} DZ</div>
 								</d:forEach>
 							</c:when>

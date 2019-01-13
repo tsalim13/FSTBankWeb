@@ -77,7 +77,7 @@ public class ComptePriveBean implements ComptePriveRemote, ObservableHist {
 				cpp.setSolde(cpp.getSolde() - mt);
 				em.flush();
 				if (vir == false)
-					notifyHist(id, 0, mt);
+					notifyHist(cpp.getCodeIBN(), null, mt);
 				return true;
 			}
 		} else if (typeCompte.equals("partage")) {
@@ -88,7 +88,7 @@ public class ComptePriveBean implements ComptePriveRemote, ObservableHist {
 				cpp.setSolde(cpp.getSolde() - mt);
 				em.flush();
 				if (vir == false)
-					notifyHist(id, 0, mt);
+					notifyHist(cpp.getCodeIBN(), null, mt);
 				return true;
 			}
 		} else {
@@ -99,7 +99,7 @@ public class ComptePriveBean implements ComptePriveRemote, ObservableHist {
 				cpp.setSolde(cpp.getSolde() - mt);
 				em.flush();
 				if (vir == false)
-					notifyHist(id, 0, mt);
+					notifyHist(cpp.getCodeIBN(), null, mt);
 				return true;
 			}
 		}
@@ -112,7 +112,19 @@ public class ComptePriveBean implements ComptePriveRemote, ObservableHist {
 		vir = true;
 		if (retirer(cp, mt, typeCompte)) {
 			if (verser(cp2, mt)) {
-				notifyHist(cp, cp2, mt);
+				CParticulierPrive cpp = em.find(CParticulierPrive.class, cp2);
+				if (typeCompte.equals("prive")) {
+					CParticulierPrive cpp2 = em.find(CParticulierPrive.class, cp);
+					notifyHist(cpp2.getCodeIBN(), cpp.getCodeIBN(), mt);
+				}
+				else if (typeCompte.equals("pro")) {
+					CProfessionnel cpp3 = em.find(CProfessionnel.class, cp);
+					notifyHist(cpp3.getCodeIBN(), cpp.getCodeIBN(), mt);					
+				}
+				else {
+					CParticulierPartage cpp4 = em.find(CParticulierPartage.class, cp);
+					notifyHist(cpp4.getCodeIBN(), cpp.getCodeIBN(), mt);						
+				}				
 				vir = false;
 				return true;
 			} else
@@ -147,12 +159,12 @@ public class ComptePriveBean implements ComptePriveRemote, ObservableHist {
 	}
 
 	@Override
-	public void notifyHist(int sender, int receiver, double solde) {
+	public void notifyHist(String sender, String receiver, double solde) {
 
 		Date d;
 		Historique h = new Historique();
 		h.setId_sender(sender);
-		if (receiver != 0) {
+		if (receiver != null) {
 			h.setId_receiver(receiver);
 		}
 		h.setTrasanction_solde(solde);

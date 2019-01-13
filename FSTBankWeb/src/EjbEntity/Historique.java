@@ -16,8 +16,8 @@ public class Historique implements Serializable{
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
-	private int id_sender;
-	private int id_receiver;
+	private String id_sender;
+	private String id_receiver;
 	private double trasanction_solde;
 	private Date dateTransaction;
 	
@@ -47,19 +47,21 @@ public class Historique implements Serializable{
 		this.dateTransaction = dateTransaction;
 	}
 
-	public int getId_sender() {
+	
+
+	public String getId_sender() {
 		return id_sender;
 	}
 
-	public void setId_sender(int id_sender) {
+	public void setId_sender(String id_sender) {
 		this.id_sender = id_sender;
 	}
 
-	public int getId_receiver() {
+	public String getId_receiver() {
 		return id_receiver;
 	}
 
-	public void setId_receiver(int id_receiver) {
+	public void setId_receiver(String id_receiver) {
 		this.id_receiver = id_receiver;
 	}
 

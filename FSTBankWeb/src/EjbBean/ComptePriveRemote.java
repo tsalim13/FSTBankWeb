@@ -19,4 +19,5 @@ public interface ComptePriveRemote {
 	boolean retirer(int id, double mt, String typeCompte);
 	boolean verser(int id, double mt);
 	boolean virement(int cp, int cp2, double mt, String typeCompte);
+	void notifyHist(String sender, String receiver, double solde);
 }

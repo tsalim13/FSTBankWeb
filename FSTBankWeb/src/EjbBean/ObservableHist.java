@@ -2,5 +2,5 @@ package EjbBean;
 
 public interface ObservableHist {
 
-	public void notifyHist(int sender, int receiver, double solde);
+	public void notifyHist(String sender, String receiver, double solde);
 }

@@ -67,6 +67,7 @@ public class ComptePartageBean implements ComptePartageRemote, ObservableHist {
 		} else
 			return false;
 	}
+
 	@Interceptors({ Journalisation.class })
 	@Override
 	public boolean retirer(int id, double mt, String typeCompte) {
@@ -78,7 +79,7 @@ public class ComptePartageBean implements ComptePartageRemote, ObservableHist {
 				cpp.setSolde(cpp.getSolde() - mt);
 				em.flush();
 				if (vir == false)
-					notifyHist(id, 0, mt);
+					notifyHist(cpp.getCodeIBN(), null, mt);
 				return true;
 			}
 		} else if (typeCompte.equals("partage")) {
@@ -89,7 +90,7 @@ public class ComptePartageBean implements ComptePartageRemote, ObservableHist {
 				cpp.setSolde(cpp.getSolde() - mt);
 				em.flush();
 				if (vir == false)
-					notifyHist(id, 0, mt);
+					notifyHist(cpp.getCodeIBN(), null, mt);
 				return true;
 			}
 		} else {
@@ -100,22 +101,33 @@ public class ComptePartageBean implements ComptePartageRemote, ObservableHist {
 				cpp.setSolde(cpp.getSolde() - mt);
 				em.flush();
 				if (vir == false)
-					notifyHist(id, 0, mt);
+					notifyHist(cpp.getCodeIBN(), null, mt);
 				return true;
 			}
 		}
 		return false;
 	}
+
 	@Interceptors({ Journalisation.class })
 	@Override
 	public boolean virement(int cp, int cp2, double mt, String typeCompte) {
 		vir = true;
 		if (retirer(cp, mt, typeCompte)) {
 			if (verser(cp2, mt)) {
-					notifyHist(cp, cp2, mt);
-					notifyHist(cp, cp2, mt);
-					vir = false;
-					return true;
+				CParticulierPartage cpp = em.find(CParticulierPartage.class, cp2);
+				if (typeCompte.equals("prive")) {
+					CParticulierPrive cpp1 = em.find(CParticulierPrive.class, cp);
+					notifyHist(cpp1.getCodeIBN(), cpp.getCodeIBN(), mt);
+				} else if (typeCompte.equals("pro")) {
+					CProfessionnel cpp2 = em.find(CProfessionnel.class, cp);
+					notifyHist(cpp2.getCodeIBN(), cpp.getCodeIBN(), mt);
+				} else {
+					CParticulierPartage cpp3 = em.find(CParticulierPartage.class, cp);
+					notifyHist(cpp3.getCodeIBN(), cpp.getCodeIBN(), mt);
+				}
+
+				vir = false;
+				return true;
 			} else
 				return false;
 		} else
@@ -155,16 +167,16 @@ public class ComptePartageBean implements ComptePartageRemote, ObservableHist {
 	}
 
 	@Override
-	public void notifyHist(int sender, int receiver, double solde) {
+	public void notifyHist(String sender, String receiver, double solde) {
 		Date d;
 		Historique h = new Historique();
 		h.setId_sender(sender);
-		if (receiver != 0) {
+		if (receiver != null) {
 			h.setId_receiver(receiver);
 		}
 		h.setTrasanction_solde(solde);
 		r.update(h);
-		
+
 	}
 
 }
