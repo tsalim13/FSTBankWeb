@@ -52,18 +52,24 @@
 											data-toggle="modal" data-target="#exampleModal">Faire
 											un virement</button>
 									</div>
+
 									<button type="button" class="btn btn-info btn-lg"
 										data-toggle="modal" data-target="#exampleModal2">faire
 										un retrait</button>
 
-									<div style="width: 30%; float: right;">
-										<button type="button" class="btn btn-info btn-lg"
-											data-toggle="modal" data-target="#exampleModal">
-											Relever de comptes</button>
-									</div>
+
+
 								</div>
 								<d:forEach items="${liste}" var="liste">
-									<div class="alert alert-success"><b>Code IBAN : </b>${liste.getCodeIBN()}</div>
+									<div class="alert alert-success">
+										<form action="HistControlleur" methode="get">
+											<button class="btn btn-success btn-sm">relever de
+												compte</button>
+												<input type="hidden" name="iban" value="${liste.getCodeIBN()}">
+											<b>Code IBAN : </b>${liste.getCodeIBN()}
+										</form>
+
+									</div>
 									<div
 										style="font-size: 60px; letter-spacing: 4px; text-align: center;">
 										${liste.getSolde()} DZ</div>
@@ -72,7 +78,8 @@
 							<c:otherwise>
 								<div
 									style="font-size: 40px; letter-spacing: 4px; text-align: center;"
-									class="alert alert-danger">vous n'avez pas de compte pariculier privé</div>
+									class="alert alert-danger">vous n'avez pas de compte
+									pariculier privé</div>
 							</c:otherwise>
 						</c:choose>
 
