@@ -14,9 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 import EjbBean.HistRemote;
 import EjbEntity.Historique;
 
-/**
- * Servlet implementation class HistControlleur
- */
 @WebServlet("/HistControlleur")
 public class HistControlleur extends HttpServlet {
 	private static final long serialVersionUID = 1L;

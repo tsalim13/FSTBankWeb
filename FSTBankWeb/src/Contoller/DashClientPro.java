@@ -74,7 +74,6 @@ public class DashClientPro extends HttpServlet {
 			String iban2 = request.getParameter("iban2");
 			String solde = request.getParameter("solde");
 
-
 			// vérifier si iban2 existe . . .
 			if (cpPrive.findIdByIBAN(iban2) != null) {
 				if (cpPrive.virement(cpPro.findIdByIBAN(iban).getId(), cpPrive.findIdByIBAN(iban2).getId(),

@@ -55,14 +55,17 @@
 										data-toggle="modal" data-target="#exampleModal2">faire
 										un retrait</button>
 
-									<div style="width: 30%; float: right;">
-										<button type="button" class="btn btn-info btn-lg"
-											data-toggle="modal" data-target="#exampleModal">
-											Relever de comptes</button>
-									</div>
+									
 								</div>
 								<c:forEach items="${liste}" var="liste">
-									<div class="alert alert-success"><b>Code IBAN : </b>${liste.getCodeIBN()}</div>
+									<div class="alert alert-success">
+									<form action="HistControlleur" methode="get">
+											<button class="btn btn-success btn-sm">relever de
+												compte</button>
+												<input type="hidden" name="iban" value="${liste.getCodeIBN()}">
+											<b>Code IBAN : </b>${liste.getCodeIBN()}
+										</form>
+									</div>
 									<div
 										style="font-size: 60px; letter-spacing: 4px; text-align: center;">
 										${liste.getSolde()} DZ</div>

@@ -116,7 +116,7 @@ public class CompteProBean implements CompteProRemote, ObservableHist {
 				if (typeCompte.equals("prive")) {
 					CParticulierPrive cpp1 = em.find(CParticulierPrive.class, cp);
 					notifyHist(cpp1.getCodeIBN(), cpp.getCodeIBN(), mt);
-				} else if (typeCompte.equals("prive")) {
+				} else if (typeCompte.equals("pro")) {
 					CProfessionnel cpp2 = em.find(CProfessionnel.class, cp);
 					notifyHist(cpp2.getCodeIBN(), cpp.getCodeIBN(), mt);
 				} else {

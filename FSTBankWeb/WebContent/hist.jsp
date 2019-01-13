@@ -24,26 +24,47 @@
 			<div class="box-inner">
 				<div class="box-header well" data-original-title="">
 					<h2>
-						<i class="glyphicon glyphicon-star-empty"></i> Blank
+						<i class="glyphicon glyphicon-star-empty"></i> Relever de Compte
 					</h2>
 				</div>
 				<div class="box-content">
 					<!-- put your content here -->
 
 					<c:if test="${trouve== true}">
-						<e:forEach items="${liste}" var="liste">
-							${liste.getDateTransaction()}
-							${liste.getId_sender()}
-							${liste.getId_receiver()}
-							${liste.getTrasanction_solde()}
-						</e:forEach>
+						<table class="table">
+							<thead>
+								<tr>
+									<th scope="col">#</th>
+									<th scope="col">Date de transaction</th>
+									<th scope="col">IBAN sender</th>
+									<th scope="col">IBAN receiver</th>
+									<th scope="col">Transaction solde</th>
+								</tr>
+							</thead>
+							<tbody>
+								<e:forEach items="${liste}" var="liste">
+									<tr>
+										<th scope="row">${liste.getId()}</th>
+										<td>${liste.getDateTransaction()}</td>
+										<td>${liste.getId_sender()}</td>
+										<td>${liste.getId_receiver()}</td>
+										<td>${liste.getTrasanction_solde()}</td>
+									</tr>
+								</e:forEach>
+							</tbody>
+						</table>
+						<a href="javascript:window.print()"><button class="btn btn-info btn-sm">Imprimer le relever de Compte</button></a>
 
 
 					</c:if>
 
 					<c:if test="${trouve== false}">
-               			 il rien a affichier
-                	</c:if>
+						<div
+							style="font-size: 40px; letter-spacing: 4px; text-align: center;"
+							class="alert alert-danger">Pas de transaction ,aucune
+							action n'a été trouvée</div>
+
+					</c:if>
 
 
 
