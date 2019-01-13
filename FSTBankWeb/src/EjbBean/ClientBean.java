@@ -27,8 +27,9 @@ public class ClientBean implements ClientRemote {
 	}
 
 	@Override
-	public void supprimer() {
-		// TODO Auto-generated method stub
+	public void supprimer(Client clr) {
+		
+		em.remove(em.merge(clr));
 
 	}
 

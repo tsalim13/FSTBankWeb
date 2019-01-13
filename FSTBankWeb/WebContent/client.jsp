@@ -105,25 +105,25 @@
 											<td>${client.id}</td>
 											<td class="center">${client.nom}</td>
 											<td class="center">${client.prenom}</td>
-											<td class="center">${client.mail}<span
-												class="label-success label label-default">Active</span></td>
+											<td class="center">${client.mail}</td>
 											<td class="center"><input type="hidden"
 												value="${client.id}" name="id">
 												<button class="btn btn-primary">Ajouter un compte</button>
 										</form>
-										<button class="btn btn-success">
-											<i class="glyphicon glyphicon-zoom-in icon-white"></i> Voir
-										</button>
+
 										<button class="btn btn-info" data-toggle="modal"
 											data-target="#exampleModal2">
 											<i class="glyphicon glyphicon-edit icon-white"></i> Modifier
 										</button>
+										
+											
+											<a class="btn btn-danger" href="DeleteControlleur?clinet=${client.id}"
+												title="Attention tout information seront supprimées."
+												data-toggle="tooltip"> <i
+												class="glyphicon glyphicon-trash icon-white"></i> Supprimer
+											</a>
+										
 
-										<a class="btn btn-danger" href="#"
-											title="Attention tout information seront supprimées."
-											data-toggle="tooltip"> <i
-											class="glyphicon glyphicon-trash icon-white"></i> Supprimer
-										</a>
 										</td>
 
 									</tr>
@@ -144,20 +144,18 @@
 											<span aria-hidden="true">&times;</span>
 										</button>
 									</div>
-									
 
-											<div class="modal-body">
-											
-											</div>
 
-											<div class="modal-footer">
-												<button type="button" class="btn btn-secondary btn-sm"
-													data-dismiss="modal">Quiter</button>
-												<input type="reset" class="btn btn-secondary btn-sm"
-													value="Videz les champs">
-												<button class="btn btn-primary btn-sm">Confirmer</button>
-											</div>
-										
+									<div class="modal-body"></div>
+
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary btn-sm"
+											data-dismiss="modal">Quiter</button>
+										<input type="reset" class="btn btn-secondary btn-sm"
+											value="Videz les champs">
+										<button class="btn btn-primary btn-sm">Confirmer</button>
+									</div>
+
 
 								</div>
 							</div>

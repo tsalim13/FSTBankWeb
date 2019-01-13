@@ -8,7 +8,7 @@ import EjbEntity.Client;
 public interface ClientRemote {
 
 	public Client ajouter(Client clr);
-	public void supprimer();
+	public void supprimer(Client clr);
 	public void modifier();
 	public List<Client> afficher();
 	public Client find(int id);
