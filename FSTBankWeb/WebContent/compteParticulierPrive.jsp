@@ -32,7 +32,8 @@
 
 							<form action="AddCompteControlleur" methode="get">
 								<input type="hidden" name="form" value="2">
-								<button class="btn btn-primary">Ajouter un compte particulier privée</button>
+								<button class="btn btn-primary">Ajouter un compte
+									particulier privée</button>
 							</form>
 
 						</div>
@@ -55,8 +56,15 @@
 											<td class="center">${list.codeIBN}</td>
 											<td class="center">${list.solde}</td>
 											<td class="center">${list.client.mail}</td>
-											<td class="center"><input type="hidden" name="form" value="2">
+											<td class="center"><input type="hidden" name="form"
+												value="2">
 												<button class="btn btn-primary">Ajouter un compte</button>
+										</form>
+										<form action="HistControlleur" methode="get"  style="width: 28%; float: left;">
+											<input type="hidden" name="iban" value="${list.codeIBN}">
+											<button class="btn btn-success">
+												<i class="glyphicon glyphicon-zoom-in icon-white"></i> Relever de Compte
+											</button>
 										</form>
 
 										<a class="btn btn-danger" href="#"

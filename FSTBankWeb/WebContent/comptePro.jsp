@@ -60,6 +60,12 @@
 											<td class="center"><input type="hidden" name="form" value="3">
 												<button class="btn btn-primary">Ajouter un compte</button>
 										</form>
+										<form action="HistControlleur" methode="get"  style="width: 30%; float: left;">
+											<input type="hidden" name="iban" value="${list.codeIBN}">
+											<button class="btn btn-success">
+												<i class="glyphicon glyphicon-zoom-in icon-white"></i> Relever de Compte
+											</button>
+										</form>
 
 										<a class="btn btn-danger" href="#"
 											title="Attention tout information seront supprimées."
