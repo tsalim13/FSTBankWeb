@@ -18,6 +18,6 @@ public interface CompteProRemote {
 	public boolean verser(int id, double mt);
 	public ArrayList<CProfessionnel> findCompteByClient(int idClient);
 	public CProfessionnel findIdByIBAN(String iban);
-	boolean virement(int cp, int cp2, double mt, String typeCompte);
-	boolean retirer(int id, double mt, String typeCompte);
+	boolean virement(int cp, int cp2, double mt, String typeCompte, int idc);
+	boolean retirer(int id, double mt, String typeCompte, int idc);
 }

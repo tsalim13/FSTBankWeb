@@ -40,6 +40,7 @@ public class DashClientPartage extends HttpServlet {
 	private boolean cptValide = true;
 	private boolean trouve = false;
 	private int soldeInsuffisant = 0;
+	int idc ; 
 
 	public DashClientPartage() {
 		super();
@@ -50,7 +51,7 @@ public class DashClientPartage extends HttpServlet {
 		// récupérer id du client . . .
 
 		HttpSession session = request.getSession();
-		int idc = (int) session.getAttribute("clientId");
+		 idc = (int) session.getAttribute("clientId");
 		
 		
 		// récupérer les comptes Particulier partage du client
@@ -81,7 +82,7 @@ public class DashClientPartage extends HttpServlet {
 			// vérifier si iban2 existe . . .
 			if (cpPrive.findIdByIBAN(iban2) != null) {
 				if (cpPrive.virement(cpPartage.findIdByIBAN(iban).getId(), cpPrive.findIdByIBAN(iban2).getId(),
-						Double.parseDouble(solde), "partage")) {
+						Double.parseDouble(solde), "partage",idc)) {
 					soldeInsuffisant = 1;
 					doGet(request, response);
 					soldeInsuffisant = 0;
@@ -94,7 +95,7 @@ public class DashClientPartage extends HttpServlet {
 			} else {
 				if (cpPro.findIdByIBAN(iban2) != null) {
 					if (cpPro.virement(cpPartage.findIdByIBAN(iban).getId(), cpPro.findIdByIBAN(iban2).getId(),
-							Double.parseDouble(solde), "partage")) {
+							Double.parseDouble(solde), "partage",idc)) {
 						soldeInsuffisant = 1;
 						doGet(request, response);
 						soldeInsuffisant = 0;
@@ -106,7 +107,7 @@ public class DashClientPartage extends HttpServlet {
 				} else {
 					if (cpPartage.findIdByIBAN(iban2) != null) {
 						if (cpPartage.virement(cpPartage.findIdByIBAN(iban).getId(),
-								cpPartage.findIdByIBAN(iban2).getId(), Double.parseDouble(solde), "partage")) {
+								cpPartage.findIdByIBAN(iban2).getId(), Double.parseDouble(solde), "partage",idc)) {
 							soldeInsuffisant = 1;
 							doGet(request, response);
 							soldeInsuffisant = 0;
@@ -127,7 +128,7 @@ public class DashClientPartage extends HttpServlet {
 			String iban = request.getParameter("iban");
 			String solde = request.getParameter("soldee");
 
-			if (cpPartage.retirer(cpPartage.findIdByIBAN(iban).getId(), Double.parseDouble(solde), "partage")) {
+			if (cpPartage.retirer(cpPartage.findIdByIBAN(iban).getId(), Double.parseDouble(solde), "partage",idc)) {
 				soldeInsuffisant = 1;
 				doGet(request, response);
 				soldeInsuffisant = 0;

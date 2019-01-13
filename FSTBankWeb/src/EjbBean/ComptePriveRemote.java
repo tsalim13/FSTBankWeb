@@ -16,8 +16,8 @@ public interface ComptePriveRemote {
 	public List<CParticulierPrive> listComptes();
 	public ArrayList<CParticulierPrive> findCompteByClient(int idClient);
 	public CParticulierPrive findIdByIBAN(String iban);
-	boolean retirer(int id, double mt, String typeCompte);
+	boolean retirer(int id, double mt, String typeCompte, int idc);
 	boolean verser(int id, double mt);
-	boolean virement(int cp, int cp2, double mt, String typeCompte);
+	boolean virement(int cp, int cp2, double mt, String typeCompte, int idc);
 	void notifyHist(String sender, String receiver, double solde);
 }

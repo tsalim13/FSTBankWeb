@@ -38,6 +38,7 @@ public class DashClientPrive extends HttpServlet {
 	private boolean cptValide = true;
 	private boolean trouve = false;
 	private int soldeInsuffisant = 0;
+	int idc;
 
 	public DashClientPrive() {
 		super();
@@ -48,7 +49,7 @@ public class DashClientPrive extends HttpServlet {
 		// récupérer id du client . . .
 
 		HttpSession session = request.getSession();
-		int idc = (int) session.getAttribute("clientId");
+		 idc = (int) session.getAttribute("clientId");
 		
 		// récupérer les comptes Particulier Prive du client
 		ArrayList<CParticulierPrive> liste = null;
@@ -76,7 +77,7 @@ public class DashClientPrive extends HttpServlet {
 			// vérifier si iban2 existe . . .
 			if (cpPrive.findIdByIBAN(iban2) != null) {
 				if (cpPrive.virement(cpPrive.findIdByIBAN(iban).getId(), cpPrive.findIdByIBAN(iban2).getId(),
-						Double.parseDouble(solde), "prive")) {
+						Double.parseDouble(solde), "prive",idc)) {
 					soldeInsuffisant = 1;
 					doGet(request, response);
 					soldeInsuffisant = 0;
@@ -89,7 +90,7 @@ public class DashClientPrive extends HttpServlet {
 			} else {
 				if (cpPro.findIdByIBAN(iban2) != null) {
 					if (cpPro.virement(cpPrive.findIdByIBAN(iban).getId(), cpPro.findIdByIBAN(iban2).getId(),
-							Double.parseDouble(solde), "prive")) {
+							Double.parseDouble(solde), "prive",idc)) {
 						soldeInsuffisant = 1;
 						doGet(request, response);
 						soldeInsuffisant = 0;
@@ -101,7 +102,7 @@ public class DashClientPrive extends HttpServlet {
 				} else {
 					if (cpPartage.findIdByIBAN(iban2) != null) {
 						if (cpPartage.virement(cpPrive.findIdByIBAN(iban).getId(),
-								cpPartage.findIdByIBAN(iban2).getId(), Double.parseDouble(solde), "prive")) {
+								cpPartage.findIdByIBAN(iban2).getId(), Double.parseDouble(solde), "prive",idc)) {
 							soldeInsuffisant = 1;
 							doGet(request, response);
 							soldeInsuffisant = 0;
@@ -122,7 +123,7 @@ public class DashClientPrive extends HttpServlet {
 			String iban = request.getParameter("iban");
 			String solde = request.getParameter("soldee");
 
-			if (cpPrive.retirer(cpPrive.findIdByIBAN(iban).getId(), Double.parseDouble(solde), "prive")) {
+			if (cpPrive.retirer(cpPrive.findIdByIBAN(iban).getId(), Double.parseDouble(solde), "prive",idc)) {
 				soldeInsuffisant = 1;
 				doGet(request, response);
 				soldeInsuffisant = 0;

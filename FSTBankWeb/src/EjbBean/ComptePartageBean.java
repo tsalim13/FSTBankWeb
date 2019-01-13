@@ -70,7 +70,7 @@ public class ComptePartageBean implements ComptePartageRemote, ObservableHist {
 
 	@Interceptors({ Journalisation.class })
 	@Override
-	public boolean retirer(int id, double mt, String typeCompte) {
+	public boolean retirer(int id, double mt, String typeCompte, int idc) {
 		if (typeCompte.equals("prive")) {
 			CParticulierPrive cpp = em.find(CParticulierPrive.class, id);
 			if (cpp != null) {
@@ -110,9 +110,9 @@ public class ComptePartageBean implements ComptePartageRemote, ObservableHist {
 
 	@Interceptors({ Journalisation.class })
 	@Override
-	public boolean virement(int cp, int cp2, double mt, String typeCompte) {
+	public boolean virement(int cp, int cp2, double mt, String typeCompte,int idc) {
 		vir = true;
-		if (retirer(cp, mt, typeCompte)) {
+		if (retirer(cp, mt, typeCompte,idc)) {
 			if (verser(cp2, mt)) {
 				CParticulierPartage cpp = em.find(CParticulierPartage.class, cp2);
 				if (typeCompte.equals("prive")) {
