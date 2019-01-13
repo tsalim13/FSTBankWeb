@@ -101,11 +101,8 @@
 										<td>${banquier.id}</td>
 										<td class="center">${banquier.nom}</td>
 										<td class="center">${banquier.prenom}</td>
-										<td class="center">${banquier.mail}<span
-											class="label-success label label-default">Active</span></td>
-										<td class="center"><a class="btn btn-success" href="#">
-												<i class="glyphicon glyphicon-zoom-in icon-white"></i> View
-										</a> <a class="btn btn-info" href="#"> <i
+										<td class="center">${banquier.mail}</td>
+										<td class="center"> <a class="btn btn-info" href="#"> <i
 												class="glyphicon glyphicon-edit icon-white"></i> Modifier
 										</a> <a class="btn btn-danger" href="#"
 											title="Attention tout information seront supprimées."
