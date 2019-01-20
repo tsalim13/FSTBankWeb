@@ -12,4 +12,5 @@ public interface HistRemote {
 
 	public void update(Historique h);
 	public List<Historique> afficher(String iban);
+	List<Historique> afficherR(String iban);
 }

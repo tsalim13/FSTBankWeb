@@ -1,7 +1,10 @@
 package EjbBean;
 
-import java.sql.Date;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -168,8 +171,17 @@ public class ComptePartageBean implements ComptePartageRemote, ObservableHist {
 
 	@Override
 	public void notifyHist(String sender, String receiver, double solde) {
-		Date d;
+		Date dt = null;
 		Historique h = new Historique();
+		SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
+		String date = sdf.format(new Date());
+		try {
+			dt = sdf.parse(date);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		h.setDateTransaction(dt);
 		h.setId_sender(sender);
 		if (receiver != null) {
 			h.setId_receiver(receiver);

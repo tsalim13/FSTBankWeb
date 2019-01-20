@@ -29,8 +29,11 @@
 				</div>
 				<div class="box-content">
 					<!-- put your content here -->
+					
+					
 
 					<c:if test="${trouve== true}">
+					<h3>Transaction sortante</h3>
 						<table class="table">
 							<thead>
 								<tr>
@@ -53,12 +56,47 @@
 								</e:forEach>
 							</tbody>
 						</table>
-						<a href="javascript:window.print()"><button class="btn btn-info btn-sm">Imprimer le relever de Compte</button></a>
+						
 
 
 					</c:if>
+					
+					
+					
+					<c:if test="${trouveR== true}">
+					<h3>Transaction entrante</h3>
+						<table class="table">
+							<thead>
+								<tr>
+									<th scope="col">#</th>
+									<th scope="col">Date de transaction</th>
+									<th scope="col">IBAN sender</th>
+									<th scope="col">IBAN receiver</th>
+									<th scope="col">Transaction solde</th>
+								</tr>
+							</thead>
+							<tbody>
+								<e:forEach items="${listeR}" var="listeR">
+									<tr>
+										<th scope="row">${listeR.getId()}</th>
+										<td>${listeR.getDateTransaction()}</td>
+										<td>${listeR.getId_sender()}</td>
+										<td>${listeR.getId_receiver()}</td>
+										<td>${listeR.getTrasanction_solde()}</td>
+									</tr>
+								</e:forEach>
+							</tbody>
+						</table>
+						
 
-					<c:if test="${trouve== false}">
+
+					</c:if>
+					
+					<c:if test="${trouve== true || trouveR== true}">
+						<a href="javascript:window.print()"><button class="btn btn-info btn-sm">Imprimer le relever de Compte</button></a>
+					</c:if>
+					
+					<c:if test="${trouve== false && trouveR== false}">
 						<div
 							style="font-size: 40px; letter-spacing: 4px; text-align: center;"
 							class="alert alert-danger">Pas de transaction ,aucune

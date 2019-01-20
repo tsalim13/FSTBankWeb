@@ -30,5 +30,11 @@ public class HistBean implements HistRemote, ObserverHist {
 		Query req = em.createQuery("select h from Historique h where h.id_sender='"+iban+"'");
 		return req.getResultList();
 	}
+	
+	@Override
+	public List<Historique> afficherR(String iban) {
+		Query req = em.createQuery("select h from Historique h where h.id_receiver='"+iban+"'");
+		return req.getResultList();
+	}
 
 }

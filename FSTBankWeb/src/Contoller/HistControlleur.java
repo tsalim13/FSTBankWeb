@@ -21,6 +21,9 @@ public class HistControlleur extends HttpServlet {
 	HistRemote his;
 	private boolean trouve = false;
 	ArrayList<EjbEntity.Historique> liste = null;
+	
+	private boolean trouveR = false;
+	ArrayList<EjbEntity.Historique> listeR = null;
 
 	public HistControlleur() {
 		super();
@@ -37,10 +40,21 @@ public class HistControlleur extends HttpServlet {
 				trouve = true;
 			} else
 				trouve = false;
+			
+			
+			listeR = (ArrayList<Historique>) his.afficherR(request.getParameter("iban"));
+			System.out.println("listeR = "+listeR);
+			if (listeR.size() != 0) {
+				trouveR = true;
+			} else
+				trouveR = false;
 		
 		request.setAttribute("trouve", trouve);
+		request.setAttribute("trouveR", trouveR);
 		trouve = false;
+		trouveR = false;
 		request.setAttribute("liste", liste);
+		request.setAttribute("listeR", listeR);
 		this.getServletContext().getRequestDispatcher("/hist.jsp").forward(request, response);
 
 	}
