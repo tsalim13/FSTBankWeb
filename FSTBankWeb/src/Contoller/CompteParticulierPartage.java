@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import EjbBean.ClientRemote;
 import EjbBean.ComptePartageRemote;
 import EjbBean.ComptePriveRemote;
 import EjbBean.CompteProRemote;
@@ -25,30 +26,37 @@ public class CompteParticulierPartage extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	@EJB
 	private ComptePartageRemote cp;
-       
-    
-    public CompteParticulierPartage() {
-        super();  
-    }
+	@EJB
+	private ClientRemote cr;
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List list = cp.listComptes();
-
-		System.out.println("list = "+list);
-		
-		request.setAttribute("list", list);
-		
-		this.getServletContext().getRequestDispatcher("/compteParticulierPartage.jsp").forward(request, response);
+	public CompteParticulierPartage() {
+		super();
 	}
 
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		List list = cp.listComptes();
+		if (request.getParameter("addClient") != null) {
+			// récupéré le mail du client ajouter
+			String mail = request.getParameter("addClient");
+			System.out.println("mail client = "+mail);
+			// traitement . . . 
+			
+		}
+
+		request.setAttribute("list", list);
+
+		this.getServletContext().getRequestDispatcher("/compteParticulierPartage.jsp").forward(request, response);
+	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		int  id = Integer.parseInt(request.getParameter("cll"));
-		System.out.println(id);
 		ArrayList<Client> liste = cp.findClientByCompte(id);
-		System.out.println("liste cl = "+liste);
+		List<EjbEntity.Client> list = cr.afficher();
 		
+
+		request.setAttribute("list", list);
 		request.setAttribute("liste", liste);
 		this.getServletContext().getRequestDispatcher("/clientt.jsp").forward(request, response);
 	}

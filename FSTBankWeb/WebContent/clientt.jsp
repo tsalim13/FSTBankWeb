@@ -29,82 +29,85 @@
 				</div>
 				<div class="box-content">
 					<!-- put your content here -->
-					
-					
+
+
 					<h3>Liste des Client</h3>
-						<table class="table">
-							<thead>
+
+					<button type="button" class="btn btn-info btn-lg"
+						data-toggle="modal" data-target="#exampleModal2">Ajouter
+						un Client</button>
+
+					<table class="table">
+						<thead>
+							<tr>
+								<th>Code</th>
+								<th>Nom</th>
+								<th>Prenom</th>
+								<th>Mail</th>
+							</tr>
+						</thead>
+						<tbody>
+							<e:forEach items="${liste}" var="liste">
 								<tr>
-									<th>Code</th>
-									<th>Nom</th>
-									<th>Prenom</th>
-									<th>Mail</th>
+
+									<td>${liste.id}</td>
+									<td class="center">${liste.nom}</td>
+									<td class="center">${liste.prenom}</td>
+									<td class="center">${liste.mail}</td>
 								</tr>
-							</thead>
-							<tbody>
-								<e:forEach items="${liste}" var="liste">
-									<tr>
+							</e:forEach>
+						</tbody>
+					</table>
+
+
+
+					<!-- Modal2 -->
+					<div class="modal fade" id="exampleModal2" tabindex="-1"
+						role="dialog" aria-labelledby="exampleModalLabel"
+						aria-hidden="true">
+						<div class="modal-dialog" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h3 class="modal-title" id="exampleModalLabel">ajouter un client</h3>
+									<button type="button" class="close" data-dismiss="modal"
+										aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+								<form action="CompteParticulierPartage" method="get">
+
+
+									<div class="modal-body">
+										<div class="form-group">
+											<label for="exampleInputEmail1">Choisir le client</label> <select
+												name="client" class="form-control">
+							
+													<c:forEach items="${list}" var="list">
+														<option>${list.mail}</option>
+													</c:forEach>
+												
+											</select>
+										</div>
 										
-											<td>${liste.id}</td>
-											<td class="center">${liste.nom}</td>
-											<td class="center">${liste.prenom}</td>
-											<td class="center">${liste.mail}</td>
-											
-										
+										<input type="hidden" name="addClient">
+									</div>
+
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary btn-sm"
+											data-dismiss="modal">Quiter</button>
+										<input type="reset" class="btn btn-secondary btn-sm"
+											value="Videz les champs">
+										<button class="btn btn-primary btn-sm">Confirmer</button>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
 
 
 
-									</tr>
-								</e:forEach>
-							</tbody>
-						</table>
-						
 
 
-
-					
-					
-					
-					<c:if test="${trouveR== true}">
-					<h3>Transaction entrante</h3>
-						<table class="table">
-							<thead>
-								<tr>
-									<th scope="col">#</th>
-									<th scope="col">Date de transaction</th>
-									<th scope="col">IBAN sender</th>
-									<th scope="col">IBAN receiver</th>
-									<th scope="col">Transaction solde</th>
-								</tr>
-							</thead>
-							<tbody>
-								<e:forEach items="${listeR}" var="listeR">
-									<tr>
-										<th scope="row">${listeR.getId()}</th>
-										<td>${listeR.getDateTransaction()}</td>
-										<td>${listeR.getId_sender()}</td>
-										<td>${listeR.getId_receiver()}</td>
-										<td>${listeR.getTrasanction_solde()}</td>
-									</tr>
-								</e:forEach>
-							</tbody>
-						</table>
-						
-
-
-					</c:if>
-					
-					<c:if test="${trouve== true || trouveR== true}">
-						<a href="javascript:window.print()"><button class="btn btn-info btn-sm">Imprimer le relever de Compte</button></a>
-					</c:if>
-					
-					<c:if test="${trouve== false && trouveR== false}">
-						<div
-							style="font-size: 40px; letter-spacing: 4px; text-align: center;"
-							class="alert alert-danger">Pas de transaction ,aucune
-							action n'a été trouvée</div>
-
-					</c:if>
 
 
 
