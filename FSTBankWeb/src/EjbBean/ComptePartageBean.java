@@ -22,6 +22,7 @@ import Aop.Journalisation;
 import EjbEntity.CParticulierPartage;
 import EjbEntity.CParticulierPrive;
 import EjbEntity.CProfessionnel;
+import EjbEntity.Client;
 import EjbEntity.Compte;
 import EjbEntity.Historique;
 
@@ -189,6 +190,39 @@ public class ComptePartageBean implements ComptePartageRemote, ObservableHist {
 		h.setTrasanction_solde(solde);
 		r.update(h);
 
+	}
+
+	@Override
+	public List listComptes2() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List listComptes3() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<Client> findClientByCompte(int id) {
+		
+		try {
+			Query req = em.createQuery("from CParticulierPartage cp join cp.clients cl  where cp.id=" + id);
+
+			List<Object[]> res = req.getResultList();
+			List<Client> list = new ArrayList<Client>();
+			Iterator it = res.iterator();
+			while (it.hasNext()) {
+				Object[] line = (Object[]) it.next();
+				Client cp = (Client) line[1];
+				list.add(cp);
+			}
+			return (ArrayList<Client>) list;
+
+		} catch (Exception e) {
+			return null;
+		}
 	}
 
 }

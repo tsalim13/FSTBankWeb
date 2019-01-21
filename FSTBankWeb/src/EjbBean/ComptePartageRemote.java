@@ -7,6 +7,7 @@ import javax.ejb.Remote;
 
 import EjbEntity.CParticulierPartage;
 import EjbEntity.CParticulierPrive;
+import EjbEntity.Client;
 import EjbEntity.Compte;
 
 @Remote
@@ -19,4 +20,7 @@ public interface ComptePartageRemote {
 	public CParticulierPartage findIdByIBAN(String iban2);
 	boolean virement(int cp, int cp2, double mt, String typeCompte, int idc);
 	boolean retirer(int id, double mt, String typeCompte, int idc);
+	public List listComptes2();
+	public List listComptes3();
+	public ArrayList<Client> findClientByCompte(int id);
 }

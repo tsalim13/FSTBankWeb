@@ -1,6 +1,8 @@
 package Contoller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -16,6 +18,7 @@ import EjbBean.CompteProRemote;
 import EjbEntity.CParticulierPartage;
 import EjbEntity.CParticulierPrive;
 import EjbEntity.CProfessionnel;
+import EjbEntity.Client;
 
 @WebServlet("/CompteParticulierPartage")
 public class CompteParticulierPartage extends HttpServlet {
@@ -29,7 +32,10 @@ public class CompteParticulierPartage extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<CParticulierPartage> list = cp.listComptes();
+		List list = cp.listComptes();
+
+		System.out.println("list = "+list);
+		
 		request.setAttribute("list", list);
 		
 		this.getServletContext().getRequestDispatcher("/compteParticulierPartage.jsp").forward(request, response);
@@ -38,7 +44,13 @@ public class CompteParticulierPartage extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		doGet(request, response);
+		int  id = Integer.parseInt(request.getParameter("cll"));
+		System.out.println(id);
+		ArrayList<Client> liste = cp.findClientByCompte(id);
+		System.out.println("liste cl = "+liste);
+		
+		request.setAttribute("liste", liste);
+		this.getServletContext().getRequestDispatcher("/clientt.jsp").forward(request, response);
 	}
 
 }

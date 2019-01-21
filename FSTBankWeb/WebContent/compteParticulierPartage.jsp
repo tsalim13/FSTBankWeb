@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="d"%>
 <%@ page isELIgnored="false"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <jsp:include page="header.jsp"></jsp:include>
@@ -32,7 +33,8 @@
 
 							<form action="AddCompteControlleur" methode="get">
 								<input type="hidden" name="form" value="1">
-								<button class="btn btn-primary">Ajouter un compte particulier partage</button>
+								<button class="btn btn-primary">Ajouter un compte
+									particulier partage</button>
 							</form>
 
 						</div>
@@ -50,27 +52,33 @@
 							<tbody>
 								<c:forEach items="${list}" var="list">
 									<tr>
+										
+										<td>${list.id}</td>
+										<td class="center">${list.codeIBN}</td>
+										<td class="center">${list.solde}</td>
+										<td class="center">
+											<form action="CompteParticulierPartage" method="post">
+												<input type="hidden" name="cll" value="${list.id}">
+												<button class="btn">Voir les clients</button>
+											</form>
+										</td>
 										<form action="AddCompteControlleur" method="get">
-											<td>${list.id}</td>
-											<td class="center">${list.codeIBN}</td>
-											<td class="center">${list.solde}</td>
-											<td class="center"></td>
-											<td class="center"><input type="hidden" name="form" value="1">
-												<button class="btn btn-primary">Ajouter un compte</button>
-										</form>
-										<form action="HistControlleur" methode="get"  style="width: 28%; float: left;">
-											<input type="hidden" name="iban" value="${list.codeIBN}">
-											<button class="btn btn-success">
-												<i class="glyphicon glyphicon-zoom-in icon-white"></i> Relever de Compte
-											</button>
-										</form>
-
-										<a class="btn btn-danger" href="#"
+										<td class="center"><input type="hidden" name="form"
+											value="1">
+											<button class="btn btn-primary">Ajouter un compte</button>
+											</form>
+											<form action="HistControlleur" methode="get"
+												style="width: 28%; float: left;">
+												<input type="hidden" name="iban" value="${list.codeIBN}">
+												<button class="btn btn-success">
+													<i class="glyphicon glyphicon-zoom-in icon-white"></i>
+													Relever de Compte
+												</button>
+											</form> <a class="btn btn-danger" href="#"
 											title="Attention tout information seront supprimées."
 											data-toggle="tooltip"> <i
-											class="glyphicon glyphicon-trash icon-white"></i> Supprimer
-										</a>
-										</td>
+												class="glyphicon glyphicon-trash icon-white"></i> Supprimer
+										</a></td>
 
 									</tr>
 								</c:forEach>
